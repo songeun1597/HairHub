@@ -1,0 +1,143 @@
+#desiner {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 가운데 정렬 (수평) */
+    justify-content: center; /* 가운데 정렬 (수직) */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+#photo-container {  /* 전체 콘텐츠를 감싸는 div */
+width:650px;  /* 너비 */
+    height: 650px;
+margin:0 auto;  /* 가로로 중앙에 배치 */
+padding:5px;	/* 테두리와 내용 사이의 패딩 여백 */
+}
+#text {   /* 텍스트 부분을 감싸는 div */
+width:640px;  /* 너비 - 그림 너비 값에 맞춤 */
+border:none;  /* 테두리 */
+margin: 20px;
+}
+
+
+h3{
+    text-align: left;
+}
+h6{
+    text-align: left;
+}
+p {
+font-size: 1.0em; /* 글자 크기 */
+line-height: 2em; /* 줄간격 */
+font-weight: bold; /* 굵게 */
+text-align: left;  /* 가운데 정렬 */
+color: #888888;
+}
+.accent {
+color: #DB592A; /* 글자색 */
+}
+.smalltext {
+font-size: 0.7em; /* 글자 크기 */
+}
+
+/* 추가된 버튼 스타일 */
+.button-container {
+    margin-top: 20px; /* 버튼과 위 내용 간의 여백 */
+    text-align: center; /* 버튼을 중앙에 배치 */
+}
+
+.btn-reserve {
+    padding: 6px 12px; /* 줄어든 패딩 */
+    border-radius: 10px; /* 작아진 border-radius */
+    border: 2px solid #888; /* 회색 테두리 */
+    background-color: white;
+    color: #333; /* 어두운 회색 텍스트 */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none; /* 링크의 기본 밑줄 제거 */
+}
+
+/* 마우스 오버 시 스타일 */
+.btn-reserve:hover {
+    background-color: #e2e6ea; /* 회색톤 호버 효과 */
+    color: #333;
+    border-color: #BFAE9F;
+    text-decoration: none; /* 링크의 기본 밑줄 제거 */
+}
+
+
+
+
+.pagination {
+    justify-content: center;
+}
+
+.pagination .page-item {
+    margin: 0 5px; /* 페이지 항목 간의 간격 */
+}
+
+.pagination .page-link {
+    border-radius: 5px;
+    border: 1px solid #BFAE9F; /* 페이지 링크의 테두리 색상 */
+    background-color: white; /* 페이지 링크의 배경 색상 */
+    color: #BFAE9F; /* 페이지 링크의 텍스트 색상 */
+    padding: 10px 15px; /* 페이지 링크의 패딩 */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination .page-link:hover {
+    background-color: #BFAE9F; /* 페이지 링크 호버 시 배경 색상 */
+    color: white; /* 페이지 링크 호버 시 텍스트 색상 */
+    border-color: #BFAE9F; /* 페이지 링크 호버 시 테두리 색상 */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #BFAE9F; /* 활성 페이지 링크의 배경 색상 */
+    color: white; /* 활성 페이지 링크의 텍스트 색상 */
+    border-color: #BFAE9F; /* 활성 페이지 링크의 테두리 색상 */
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #ccc; /* 비활성 페이지 링크의 텍스트 색상 */
+    border-color: #ccc; /* 비활성 페이지 링크의 테두리 색상 */
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 가운데 정렬 (수평) */
+    justify-content: center; /* 가운데 정렬 (수직) */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+
+.review-container {
+
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px;
+}
+
+.table-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff; /* 하얀색 배경 */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    text-align: center;
+}
+
+.table thead th {
+    background-color: #BFAE9F;
+    color: white;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    padding: 0;
+}
