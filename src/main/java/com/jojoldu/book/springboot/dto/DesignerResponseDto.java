@@ -23,7 +23,7 @@ public class DesignerResponseDto {
     //snsId
     private String snsId;
     //예약시간-salon table
-    //private String reservationTime;
+    private String reservationTime;
     //휴무일
     private String holiday;
     //누적예약
@@ -33,7 +33,7 @@ public class DesignerResponseDto {
     //직급
     private String position;
 
-    public DesignerResponseDto(Designer designer, Salon salon) {
+    public DesignerResponseDto(Designer designer) {
             this.designerId = designer.getDesignerId();
             this.salonId = designer.getSalonId();
             this.designerNickname = designer.getDesignerNickname();
@@ -45,10 +45,8 @@ public class DesignerResponseDto {
             this.accumulativeBookings = designer.getAccumulativeBookings();
             this.rating = designer.getRating();
             this.position = designer.getPosition();
+            this.reservationTime = designer.getReservationTime();
 
 
-
-
-            this.worktime = salon.getWorktime();
     }
 }

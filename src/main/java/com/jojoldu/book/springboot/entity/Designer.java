@@ -32,8 +32,8 @@ public class Designer {
     private String designerIntroduce;
     //snsId
     private String snsId;
-    //예약시간-salon table
-    //private String reservationTime;
+    //예약시간
+    private String reservationTime;
     //휴무일
     private String holiday;
     //누적예약
