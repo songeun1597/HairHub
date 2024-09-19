@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 public class Salon {
     //미용실정보
-    @Id @GeneratedValue
+    @Id
     //미용실아이디
     private String salonId;
     //미용실이름
