@@ -1,9 +1,10 @@
-package com.jojoldu.book.springboot.web;
+package com.jojoldu.book.springboot.controller;
 
 import com.jojoldu.book.springboot.config.auth.LoginUser;
 import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
+import com.jojoldu.book.springboot.service.DesignerService;
 import com.jojoldu.book.springboot.service.PostsService;
-import com.jojoldu.book.springboot.web.dto.PostResponseDto;
+import com.jojoldu.book.springboot.dto.PostResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller  //@Controller를 사용한 클래스는 스프링의 빈으로 등록되어 의존성 주입이 가능
 public class IndexController {
     private final PostsService postsService;
+    private final DesignerService designerService;
 
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {  //Model 객체는 뷰에 데이터를 전달하는 데 사용
@@ -33,9 +35,14 @@ public class IndexController {
     }
 
     @GetMapping("/desiner")
-    public String desiner() {
+    public String desiner(){
 
         return "desiner";
+    }
+    @GetMapping("/designer/{id}")
+    public String designer(Model model, @PathVariable String id) {
+        model.addAttribute("designer", designerService.findById(id));
+        return "designer";
     }
 
     @GetMapping("/salon")

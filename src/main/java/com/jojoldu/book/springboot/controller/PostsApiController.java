@@ -1,9 +1,9 @@
-package com.jojoldu.book.springboot.web;
+package com.jojoldu.book.springboot.controller;
 
 import com.jojoldu.book.springboot.service.PostsService;
-import com.jojoldu.book.springboot.web.dto.PostResponseDto;
-import com.jojoldu.book.springboot.web.dto.PostsSaveRequestDto;
-import com.jojoldu.book.springboot.web.dto.PostsUpdateRequestDto;
+import com.jojoldu.book.springboot.dto.PostResponseDto;
+import com.jojoldu.book.springboot.dto.PostsSaveRequestDto;
+import com.jojoldu.book.springboot.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

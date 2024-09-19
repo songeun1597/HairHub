@@ -1,3 +1,10 @@
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none; /* 호버할 때도 밑줄이 없도록 */
+}
 
 .search {
     display: flex; /* 플렉스 레이아웃을 사용하여 자식 요소를 중앙 정렬 */
@@ -7,7 +14,7 @@
 
 .search-container {
     align-items: center;
-    border: 1px solid #ccc;
+    border: 2px solid #8FEB44;
     border-radius: 5px;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -21,7 +28,7 @@
     justify-content: center; /* 자식 요소를 가로 방향으로 중앙 정렬 */
     align-items: center; /* 자식 요소를 세로 방향으로 중앙 정렬 */
     width: 900px;
-    border: none;
+    border: 2px;
     padding: 10px;
     font-size: 16px;
     flex: 1;
@@ -30,8 +37,8 @@
 }
 
 #search-button {
-    background-color:  #D6D6D6;
-    color: #fff;
+    background-color:  #E8F5E9;
+    color: #333333;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
@@ -41,7 +48,7 @@
 }
 
 #search-button:hover {
-    background-color:  #B0B0B0;
+    background-color:  #8FEB44;
 }
 
 
@@ -58,9 +65,9 @@
 
 }
 
-#best-desiner-container {
+#best-designer-container {
     display: flex;
-    height: 340px;
+    height: 500px;
     width: 1900px;
     align-items: center;
     justify-content: center; /* 자식 요소들을 가로 방향으로 중앙 정렬 */
@@ -68,10 +75,10 @@
     width: 100%; /* 컨테이너의 너비를 100%로 설정 */
 }
 
-#best-desiner {
+#best-designer {
     position: absolute; /* 배경 이미지 위에 위치시키기 위한 설정 */
     max-width: 80%;
-    height: 300px;
+    height: 400px;
     margin: 0 auto;
     display: flex;
     flex-direction: row; /* 기본값이므로 생략 가능, 가로로 정렬되도록 설정 */
@@ -81,17 +88,18 @@
     scroll-behavior: smooth; /* 스크롤 시 부드러운 애니메이션 효과 추가 */
     overflow: hidden;
 }
-.best-desiner-title {
-    position: absolute;
-    top: 10px; /* 원하는 위치로 조정 */
-    left: 5px; /* 원하는 위치로 조정 */
-    font-size: 1.3rem; /* 폰트 크기 조정 */
+.best-designer-title {
+    top: 5px; /* 원하는 위치로 조정 */
+    margin-bottom: 50px;
+    font-size: 2rem; /* 폰트 크기 조정 */
     font-weight: 600;
     color: #333; /* 원하는 색상으로 조정 */
     background: transparent; /* 배경색을 약간 흰색으로 설정해 가독성 향상 */
-    padding: 5px 10px;
     border-radius: 5px;
+    position: absolute;
 }
+
+
 .photo-card{
 
     gap: 10px; /* 사진 간의 간격 */
@@ -130,61 +138,72 @@
     right: 0;
 }
 
+#king-container {
+    display: flex;
+    justify-content: space-around;
+    /*background-color: #FF5F5D;*/
+    background-color: #8FEB44;
+    height: 170px;
+    justify-content: center; /* 자식 요소를 가로 방향으로 중앙 정렬 */
+    align-items: center; /* 자식 요소를 세로 방향으로 중앙 정렬 */
+    width: 100%;
+    max-width: 1518px;
+    margin: 0 auto;/* 고정 너비인 경우 중앙으로 배치 */
+}
+
+
+/* 각 KingOfService의 스타일 설정 */
+.mainbutton {
+    max-width: 11%; /* 최대 너비를 11%로 설정하여 한 줄에 9개까지 배치 */
+    box-sizing: border-box; /* 패딩과 보더를 포함한 너비 및 높이 설정 */
+    align-items: center; /* 자식 요소를 세로 방향으로 중앙 정렬 */
+    justify-content: center; /* 자식 요소를 가로 방향으로 중앙 정렬 */
+    text-align: center; /* alt 텍스트 중앙 정렬 */
+    margin: 10px; /* 각 서비스 간의 간격 */
+    width: 160px;
+}
+
+
+/* 각 KingOfService의 스타일 설정 */
+.mainbutton img {
+    width: 75px; /* 이미지의 너비 설정 */
+    height: auto; /* 비율에 맞게 높이 조정 */
+    flex-direction: column;
+    border-radius: 18px; /* 둥근 모서리 */
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4); /* 더 밝은 그림자 */
+}
+
+
+
 /* recommend-container의 스타일 */
 #recommend-container {
-    background-color: #D6D6D6;
+    margin-top: 50px;
+    background-color: #E8F5E9;
     display: flex;
     gap: 10px;
     width: 100%;
-    height: 390px;
+    height: 420px;
 }
-#Neighborhood {
-    padding-left: 50px;
+
+#ggul-tip-memo{
+    width: 50%;
     display: flex;
-    justify-content: center; /* 아이콘과 텍스트를 가운데 정렬 */
-    align-items: center;
+    flex-direction: column; /* 세로 방향으로 요소 배치 */
+    align-items: center; /* 가로 방향으로 중앙 정렬 */
+    justify-content: center; /* 세로 방향으로 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
 
 }
-
-.Neighborhood-icon img{
-    width: 350px; /* 아이콘 크기 조정 */
-    height: auto;
-    border-radius: 42px; /* 둥근 모서리 */
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4); /* 더 밝은 그림자 */
-    padding-top: 15px;
-}
-
-#best-service-0{
+#ggul-tip-video{
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-left: 30px;
+    align-items: center; /* 자식 요소를 세로 방향으로 중앙 정렬 */
+    justify-content: center; /* 자식 요소를 가로 방향으로 중앙 정렬 */
 }
 
-#best-service-1{
-    padding-top: 10px;
-}
-
-
-#best-service-2, #best-service-1 {
-    display: flex;
-    justify-content: space-between; /* 항목들 사이의 간격을 균등하게 분배 */
-    align-items: center;
-    flex-wrap: wrap; /* 항목이 넘칠 경우 자동으로 줄 바꿈 */
-    width: 530px;
-}
-
-#best-service-3{
-    padding-top: 10px;
-}
-
-
-#best-service-3, #best-service-4 {
-    display: flex;
-    justify-content: space-between; /* 항목들 사이의 간격을 균등하게 분배 */
-    align-items: center;
-    flex-wrap: wrap; /* 항목이 넘칠 경우 자동으로 줄 바꿈 */
-    width: 180px;
+#ggul-tip-memo h3,
+#ggul-tip-memo h6 {
+    margin: 0; /* 불필요한 여백 제거 */
+    padding-bottom: 10px; /* 적절한 간격 추가 */
 
 }
 
@@ -197,46 +216,58 @@ video {
     display: flex;
     flex: 1; /* 공간을 균등하게 나누도록 설정 */
     margin-left: 10px;
-}
-
-/* 각 KingOfService의 스타일 설정 */
-.KingOfService {
-    flex: 1 1 30%; /* 각 항목이 30%의 너비를 가지도록 설정, 필요에 따라 조정 가능 */
-    max-width: 33%; /* 최대 너비를 33%로 설정하여 한 줄에 3개까지 배치 */
-    box-sizing: border-box; /* 패딩과 보더를 포함한 너비 및 높이 설정 */
-    align-items: center; /* 자식 요소를 세로 방향으로 중앙 정렬 */
 
 }
 
-/* 각 KingOfService의 스타일 설정 */
-.KingOfService img {
-    width: 150px; /* 이미지의 너비 설정 */
-    height: auto; /* 비율에 맞게 높이 조정 */
-    display: flex;
-    flex-direction: column;
-    border-radius: 18px; /* 둥근 모서리 */
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4); /* 더 밝은 그림자 */
-}
-.sale{
-    font: 1;
-    align-items: center;
-    box-sizing: border-box;
-}
 
-.sale img {
-    width: 150px; /* 이미지의 너비 설정 */
-    height: auto; /* 비율에 맞게 높이 조정 */
-    display: flex;
-    flex-direction: column;
-    border-radius: 18px; /* 둥근 모서리 */
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4); /* 더 밝은 그림자 */
-}
 
 h6{
     text-align: center;
-    padding-top: 10px;
+    padding-top: 9px;
 }
 p{
     text-align: center;
     font-weight: 500;;
+}
+
+#review-container {
+    display: flex;
+    height: 500px;
+    width: 1900px;
+    align-items: center;
+    justify-content: center; /* 자식 요소들을 가로 방향으로 중앙 정렬 */
+    overflow: hidden; /* 콘텐츠가 컨테이너를 넘칠 때 숨김 */
+    width: 100%; /* 컨테이너의 너비를 100%로 설정 */
+    position: relative;
+}
+
+#real-review {
+    position: absolute; /* 배경 이미지 위에 위치시키기 위한 설정 */
+    max-width: 80%;
+    height: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row; /* 기본값이므로 생략 가능, 가로로 정렬되도록 설정 */
+    justify-content: center; /* 자식 요소들을 가로 방향으로 중앙 정렬 */
+    align-items: center; /* 자식 요소들을 세로 방향으로 중앙 정렬 */
+    gap: 10px; /* 요소들 사이의 간격을 설정 (필요에 따라 조정) */
+    scroll-behavior: smooth; /* 스크롤 시 부드러운 애니메이션 효과 추가 */
+    overflow: hidden;
+}
+
+
+.real-review-title {
+    top: 5px; /* 원하는 위치로 조정 */
+    margin-bottom: 50px;
+    font-size: 2rem; /* 폰트 크기 조정 */
+    font-weight: 600;
+    color: #333; /* 원하는 색상으로 조정 */
+    background: transparent; /* 배경색을 약간 흰색으로 설정해 가독성 향상 */
+    border-radius: 5px;
+    position: absolute;
+}
+
+#phto-cards{
+    margin-top: 100px;
+    display: flex;
 }
