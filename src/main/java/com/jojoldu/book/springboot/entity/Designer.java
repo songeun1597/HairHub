@@ -21,7 +21,7 @@ public class Designer {
     //미용실아이디
     private String salonId;
     //유저고유값
-    private String user_token;
+    private String userToken;
     //디자이너이름
     private String designerNickname;
     //프로필사진
@@ -42,5 +42,10 @@ public class Designer {
     private String rating;
     //직급
     private String position;
-}
 
+
+//@ManyToOne
+//@JoinColumn(name = "salonId") // Salon의 salonId와 매핑
+//private Salon salon; // 해당 디자이너가 소속된 미용실
+
+}

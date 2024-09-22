@@ -5,6 +5,7 @@ import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
 import com.jojoldu.book.springboot.service.DesignerService;
 import com.jojoldu.book.springboot.service.PostsService;
 import com.jojoldu.book.springboot.dto.PostResponseDto;
+import com.jojoldu.book.springboot.service.SalonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class IndexController {
     private final PostsService postsService;
     private final DesignerService designerService;
+    private final SalonService salonService;
 
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {  //Model 객체는 뷰에 데이터를 전달하는 데 사용
@@ -47,7 +49,6 @@ public class IndexController {
 
     @GetMapping("/salon")
     public String salon(){
-
         return "salon";
     }
 

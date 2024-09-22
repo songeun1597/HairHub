@@ -27,12 +27,16 @@ public class Salon {
     //주소
     private String address;
     //홈페이지주소
-    private String hompageUrl;
+    private String homepageUrl;
     //영업시간
-    private String worktime;
+    private String workTime;
     //주차여부
     private String parking;
     //전화번호
     private String tel;
-}
 
+
+//@OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//private List<Designer> designers; // Salon에 연결된 디자이너 리스트
+
+}
