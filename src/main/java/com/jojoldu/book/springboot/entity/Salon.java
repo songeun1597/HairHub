@@ -19,7 +19,7 @@ public class Salon {
     //미용실아이디
     private String salonId;
     //미용실이름
-    private String salonname;
+    private String salonName;
     //미용실사진
     private String salonPictureId;
     //미용실소개
@@ -29,14 +29,19 @@ public class Salon {
     //홈페이지주소
     private String homepageUrl;
     //영업시간
-    private String workTime;
+    private String businessHours;
     //주차여부
     private String parking;
     //전화번호
     private String tel;
 
 
-//@OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//private List<Designer> designers; // Salon에 연결된 디자이너 리스트
+@OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+private List<Designer> designers; // Salon에 연결된 디자이너 리스트
 
+
+    public void addDesigner(Designer designer) {
+        this.designers.add(designer);
+        designer.setSalon(this);
+    }
 }

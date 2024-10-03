@@ -5,6 +5,9 @@ import com.jojoldu.book.springboot.entity.Salon;
 import lombok.Getter;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class DesignerResponseDto {
@@ -22,20 +25,23 @@ public class DesignerResponseDto {
     private String designerIntroduce;
     //snsId
     private String snsId;
-    //예약시간-salon table
-    private String reservationTime;
+    //예약시간
+    private final String workTime;
     //휴무일
     private String holiday;
     //누적예약
-    private String accumulativeBookings;
+    private int accumulativeBookings;
     //별점
-    private String rating;
+    private double rating;
     //직급
     private String position;
 
+    private List<ServiceResponseDto> services;
+
+
     public DesignerResponseDto(Designer designer) {
             this.designerId = designer.getDesignerId();
-            this.salonId = designer.getSalonId();
+            this.salonId = (designer.getSalon() != null)?designer.getSalon().getSalonId(): null;
             this.designerNickname = designer.getDesignerNickname();
             this.designerPictureId = designer.getDesignerPictureId();
             this.designerMemo = designer.getDesignerMemo();
@@ -45,8 +51,15 @@ public class DesignerResponseDto {
             this.accumulativeBookings = designer.getAccumulativeBookings();
             this.rating = designer.getRating();
             this.position = designer.getPosition();
-            this.reservationTime = designer.getReservationTime();
+            this.workTime = designer.getWorkTime();
 
+        // 서비스 목록 변환
+        if (designer.getServices() != null) {
+            this.services = designer.getServices().stream()
+                    .map(ServiceResponseDto::new)
+                    .collect(Collectors.toList());
+        }
 
     }
+
 }

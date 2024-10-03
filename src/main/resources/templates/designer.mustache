@@ -14,7 +14,7 @@
                 {{designer.snsId}}</p>
         <hr>
 
-        <h6>영업시간: {{designer.reservationTime}}</h6>
+        <h6>영업시간: {{salon.businessHours}}</h6>
         <h6>휴무일: {{designer.holiday}}</h6><hr>
 
         <p> *예약 전 필독* <br>
@@ -43,7 +43,7 @@
             <fieldset>
                 <div class="fieldset-group flex-container">
 
-                    <table class="table table-striped table-bordered">
+                    <table id="review-table" class="table">
                         <thead>
                         <tr>
                             <th style="width: 50px;">번호</th>

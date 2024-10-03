@@ -143,7 +143,7 @@ a:hover {
     justify-content: space-around;
     /*background-color: #FF5F5D;*/
     background-color: #8FEB44;
-    height: 170px;
+    height:200px;
     justify-content: center; /* 자식 요소를 가로 방향으로 중앙 정렬 */
     align-items: center; /* 자식 요소를 세로 방향으로 중앙 정렬 */
     width: 100%;

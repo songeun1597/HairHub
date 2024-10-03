@@ -2,15 +2,22 @@ package com.jojoldu.book.springboot.controller;
 
 import com.jojoldu.book.springboot.config.auth.LoginUser;
 import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
+import com.jojoldu.book.springboot.dto.DesignerResponseDto;
+import com.jojoldu.book.springboot.dto.ServiceResponseDto;
+import com.jojoldu.book.springboot.entity.Designer;
+import com.jojoldu.book.springboot.entity.Service;
 import com.jojoldu.book.springboot.service.DesignerService;
 import com.jojoldu.book.springboot.service.PostsService;
 import com.jojoldu.book.springboot.dto.PostResponseDto;
 import com.jojoldu.book.springboot.service.SalonService;
+import com.jojoldu.book.springboot.service.ServiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @RequiredArgsConstructor  //final 필드와 @NonNull이 붙은 필드에 대해 자동으로 생성자를 생성
 @Controller  //@Controller를 사용한 클래스는 스프링의 빈으로 등록되어 의존성 주입이 가능
@@ -18,6 +25,7 @@ public class IndexController {
     private final PostsService postsService;
     private final DesignerService designerService;
     private final SalonService salonService;
+    private final ServiceService serviceService;
 
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {  //Model 객체는 뷰에 데이터를 전달하는 데 사용
@@ -43,12 +51,30 @@ public class IndexController {
     }
     @GetMapping("/designer/{id}")
     public String designer(Model model, @PathVariable String id) {
-        model.addAttribute("designer", designerService.findById(id));
+        DesignerResponseDto designerDto = designerService.findById(id);
+        if (designerDto != null) {
+            model.addAttribute("designer", designerDto);
+
+            //salon이 null이 아닐 때 salonId를 가져옴
+            if (designerDto.getSalonId() != null) {
+                model.addAttribute("salon", salonService.findById(designerDto.getSalonId()));
+            } else {
+                model.addAttribute("salon", null);  //Salon이 없는 경우
+            }
+
+            // 서비스 목록 추가
+            List<ServiceResponseDto> services = designerDto.getServices(); // services를 직접 가져오기
+            model.addAttribute("services", services); // List로 추가
+
+        } else {
+            model.addAttribute("error", "디자이너를 찾을 수 없습니다.");
+        }
         return "designer";
     }
 
-    @GetMapping("/salon")
-    public String salon(){
+    @GetMapping("/salon/{id}")
+    public String salon(Model model, @PathVariable String id){
+        model.addAttribute("salon", salonService.findById(id));
         return "salon";
     }
 

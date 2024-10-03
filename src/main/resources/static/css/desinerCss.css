@@ -117,7 +117,7 @@ font-size: 0.7em; /* 글자 크기 */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 1500px;
+    max-width: 1600px;
 }
 
 .table-container {
@@ -129,6 +129,7 @@ font-size: 0.7em; /* 글자 크기 */
 }
 
 .table th, .table td {
+    padding: 6px !important; /* !important를 추가하여 Bootstrap 스타일보다 우선순위를 높임 */
     text-align: center;
 }
 
