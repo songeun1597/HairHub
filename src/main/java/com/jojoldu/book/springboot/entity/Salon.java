@@ -29,7 +29,7 @@ public class Salon {
     //홈페이지주소
     private String homepageUrl;
     //영업시간
-    private String businessHours;
+    private LocalDateTime businessHours;
     //주차여부
     private String parking;
     //전화번호

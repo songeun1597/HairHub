@@ -2,8 +2,8 @@ package com.jojoldu.book.springboot.config.auth;
 
 import com.jojoldu.book.springboot.config.auth.dto.OAuthAttributes;
 import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
-import com.jojoldu.book.springboot.domain.user.User;
-import com.jojoldu.book.springboot.domain.user.UserRepository;
+import com.jojoldu.book.springboot.entity.User;
+import com.jojoldu.book.springboot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -58,7 +58,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     private User saveOrUpdate(OAuthAttributes attributes){
         User user = userRepository.findByEmail(attributes.getEmail())
-                                    .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))  //.map(entity -> ...): 만약 데이터베이스에서 사용자 정보를 찾았다면, 해당 사용자를 업데이트
+                                    .map(entity -> entity.update(attributes.getName()))  //.map(entity -> ...): 만약 데이터베이스에서 사용자 정보를 찾았다면, 해당 사용자를 업데이트
                                         .orElse(attributes.toEntity());  //.orElse(attributes.toEntity()): 데이터베이스에 사용자가 없으면, OAuthAttributes 객체의 toEntity 메서드를 호출하여 새로운 User 객체를 생성
 
         return userRepository.save(user);

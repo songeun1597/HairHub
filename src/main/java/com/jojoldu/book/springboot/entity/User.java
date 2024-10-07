@@ -1,15 +1,13 @@
 package com.jojoldu.book.springboot.entity;
 
+import com.jojoldu.book.springboot.domain.user.Role;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.aspectj.weaver.ast.Var;
-import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -19,20 +17,59 @@ public class User {
     //회원정보
     @Id @GeneratedValue
     //유저고유값
-    private UUID userToken;
+    private UUID userToken; // UUID를 사용
+
+
     //유저아이디
     private String userId;
+    //이름
+    private String name;
     //이메일
     private String email;
     //전화번호
     private String phone;
     //성별
     private String gender;
-    //역할
-    private String role;
     //포일트
     private String point;
+    //비밀번호
+    private String password;
+    //역할
+    @Enumerated(EnumType.STRING)  //enum 값이 데이터베이스에 문자열 형태로 저장되도록 설정
+    @Column(nullable = false)
+    private Role role;
 
+
+
+    // 기본 생성자 (JPA용)
+    protected User() {
+    }
+
+    //업데이트
+    public User update(String name){
+        this.name = name;
+        return this;
+    }
+
+
+    @Builder
+    public User(String name, String email, String phone, String gender, String point, String password, Role role){
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.gender = gender;
+        this.point = point;
+        this.password = password;
+        this.role = role;
+    }
+
+    // 생성 시 자동으로 UUID를 생성
+    @PrePersist
+    public void prePersist() {
+        if (this.userToken == null) {
+            this.userToken = UUID.randomUUID();
+        }
+    }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reservation> reservations = new ArrayList<>(); // User에 연결된 디자이너 리스트
@@ -43,5 +80,8 @@ public class User {
         reservation.setUser(this);
     }
 
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
 }
 

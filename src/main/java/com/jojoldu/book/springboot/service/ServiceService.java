@@ -29,10 +29,4 @@ public class ServiceService {
         return new ServiceResponseDto(byId.orElseThrow(()->new IllegalArgumentException("서비스를 찾을 수 없습니다")));
     }
 
-    public List<ServiceResponseDto> findByDesignerId(String designerId) {
-        List<com.jojoldu.book.springboot.entity.Service> services = serviceRepository.findByDesigner_DesignerId(designerId);
-        return services.stream()
-                .map(service -> new ServiceResponseDto(service))  //DTO로 변환
-                .collect(Collectors.toList());
-    }
 }

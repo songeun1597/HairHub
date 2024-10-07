@@ -5,6 +5,8 @@ import com.jojoldu.book.springboot.entity.Salon;
 import lombok.Getter;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +28,7 @@ public class DesignerResponseDto {
     //snsId
     private String snsId;
     //예약시간
-    private final String workTime;
+    private String workTime;
     //휴무일
     private String holiday;
     //누적예약
@@ -37,7 +39,6 @@ public class DesignerResponseDto {
     private String position;
 
     private List<ServiceResponseDto> services;
-
 
     public DesignerResponseDto(Designer designer) {
             this.designerId = designer.getDesignerId();
@@ -52,6 +53,7 @@ public class DesignerResponseDto {
             this.rating = designer.getRating();
             this.position = designer.getPosition();
             this.workTime = designer.getWorkTime();
+
 
         // 서비스 목록 변환
         if (designer.getServices() != null) {

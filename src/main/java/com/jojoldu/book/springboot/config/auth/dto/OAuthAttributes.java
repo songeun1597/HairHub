@@ -1,7 +1,7 @@
 package com.jojoldu.book.springboot.config.auth.dto;
 
 import com.jojoldu.book.springboot.domain.user.Role;
-import com.jojoldu.book.springboot.domain.user.User;
+import com.jojoldu.book.springboot.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -56,7 +56,6 @@ public class OAuthAttributes {
         return User.builder()
                 .name(name)
                 .email(email)
-                .picture(picture)
                 .role(Role.GUEST)  //엔티티를 생성하는 시점은 처음 가입할때이므로 기본권한은 GUEST로 부여
                 .build();
     }

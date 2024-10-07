@@ -2,21 +2,18 @@ package com.jojoldu.book.springboot.controller;
 
 import com.jojoldu.book.springboot.config.auth.LoginUser;
 import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
-import com.jojoldu.book.springboot.dto.DesignerResponseDto;
-import com.jojoldu.book.springboot.dto.ServiceResponseDto;
+import com.jojoldu.book.springboot.dto.*;
 import com.jojoldu.book.springboot.entity.Designer;
 import com.jojoldu.book.springboot.entity.Service;
-import com.jojoldu.book.springboot.service.DesignerService;
-import com.jojoldu.book.springboot.service.PostsService;
-import com.jojoldu.book.springboot.dto.PostResponseDto;
-import com.jojoldu.book.springboot.service.SalonService;
-import com.jojoldu.book.springboot.service.ServiceService;
+import com.jojoldu.book.springboot.service.*;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor  //final 필드와 @NonNull이 붙은 필드에 대해 자동으로 생성자를 생성
@@ -26,6 +23,10 @@ public class IndexController {
     private final DesignerService designerService;
     private final SalonService salonService;
     private final ServiceService serviceService;
+    private final ReviewService reviewService;
+    private final ReservationService reservationService;
+
+
 
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {  //Model 객체는 뷰에 데이터를 전달하는 데 사용
@@ -44,6 +45,7 @@ public class IndexController {
         return "main";  //"main"라는 이름의 뷰를 반환
     }
 
+    //예쁜 화면 출력을 위한 디자이너 이미지페이지
     @GetMapping("/desiner")
     public String desiner(){
 
@@ -52,10 +54,12 @@ public class IndexController {
     @GetMapping("/designer/{id}")
     public String designer(Model model, @PathVariable String id) {
         DesignerResponseDto designerDto = designerService.findById(id);
+        //ReservationResponseDto reservationDto = reservationService.findById(id);
         if (designerDto != null) {
+            // 디자이너 정보를 모델에 추가
             model.addAttribute("designer", designerDto);
 
-            //salon이 null이 아닐 때 salonId를 가져옴
+            // 디자이너가 속한 살롱 정보 추가
             if (designerDto.getSalonId() != null) {
                 model.addAttribute("salon", salonService.findById(designerDto.getSalonId()));
             } else {
@@ -66,11 +70,17 @@ public class IndexController {
             List<ServiceResponseDto> services = designerDto.getServices(); // services를 직접 가져오기
             model.addAttribute("services", services); // List로 추가
 
+            // 디자이너와 해당 서비스에 대한 예약 횟수 조회
+                int reservationCount = reservationService.getReservationCountForDesigner(id.toString());
+                model.addAttribute("reservationCount", reservationCount);
+
         } else {
+            // 디자이너를 찾을 수 없는 경우
             model.addAttribute("error", "디자이너를 찾을 수 없습니다.");
         }
         return "designer";
     }
+
 
     @GetMapping("/salon/{id}")
     public String salon(Model model, @PathVariable String id){

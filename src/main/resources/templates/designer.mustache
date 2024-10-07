@@ -57,23 +57,9 @@
                             <th style="width: 100px;">재방문수</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            {{#reviews}}
-                                <td>{{num}}</td>
-                                <td>{{reservationDate}}</td>
-                                <td>{{userid}}</td>
-                                <td style="text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                    {{reviewcontent}}</td>
-                                <td>{{servicename}}</td>
-                                <td>{{thumbnail}}</td>
-                                <td>{{price}}</td>
-                                <td>{{rating}}</td>
-                                <td>{{revisiting}}</td>
-                            {{/reviews}}
-                        </tr>
+                        <tbody id = "review-body">
+                        <!--Mustache 템플릿으로 데이터가 여기에 추가됨-->
 
-                        <!-- 추가 데이터 행을 여기에 삽입 -->
                         </tbody>
                     </table>
                 </div>
@@ -105,5 +91,7 @@
 </div>
 
 
+
+{{!<script src="/js/designerscript.js" defer></script>}}
 
 {{>layout/footer}}

@@ -15,16 +15,11 @@ import java.util.Optional;
 public class SalonService {
 
     @Autowired  //Spring이 SalonRepository의 인스턴스를 자동으로 주입하도록 함. 이를통해 데이터베이스와 상호작용
-    private SalonRepository salonrepository;
+    private SalonRepository salonRepository;
 
     public SalonResponseDto findById(String id) {
-        Optional<Salon> byId = salonrepository.findById(id);
-        /*new Supplier<Throwable>() {
-            @Override
-            public Throwable get() {
-                return new IllegalArgumentException("디자이너를 찾을 수 없습니다");
-            }
-        }*/
+        Optional<Salon> byId = salonRepository.findById(id);
+
         return new SalonResponseDto(byId.orElseThrow(()->new IllegalArgumentException("미용실을를 찾을 수 없습니다")));
     }
 }

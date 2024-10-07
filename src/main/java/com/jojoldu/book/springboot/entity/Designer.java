@@ -6,6 +6,7 @@ import org.aspectj.weaver.ast.Var;
 import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +20,6 @@ public class Designer {
     @Id //@GeneratedValue 아이디가 int일때 사용
     //디자이너아이디
     private String designerId;
-    //미용실아이디
-    //private String salonId;
-    //유저고유값
-    private String userToken;
     //디자이너이름
     private String designerNickname;
     //프로필사진
