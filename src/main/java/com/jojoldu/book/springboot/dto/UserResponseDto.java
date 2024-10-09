@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 @Getter
 public class UserResponseDto {
 
-    private UUID userToken;
     //유저아이디
     private String userId;
     //이메일
@@ -31,7 +30,6 @@ public class UserResponseDto {
     private List<ReservationResponseDto> reservations;
     
     public UserResponseDto(User user) {
-            this.userToken = user.getUserToken();
             this.userId = user.getUserId();
             this.email = user.getEmail();
             this.phone = user.getPhone();

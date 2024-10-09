@@ -4,8 +4,7 @@ import com.jojoldu.book.springboot.entity.Reservation;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Getter
 public class ReservationResponseDto {
@@ -15,7 +14,7 @@ public class ReservationResponseDto {
     //서비스아이디
     private String serviceId;
     //유저고유값
-    private String userToken;
+    private String userId;
     //예약시간
     private LocalDateTime reservationTime;
     //예약자 상태
@@ -29,9 +28,8 @@ public class ReservationResponseDto {
     public ReservationResponseDto(Reservation reservation) {
             this.reservationId = reservation.getReservationId();
             this.serviceId = reservation.getServiceId();
-            this.userToken = reservation.getUserToken();
+            this.userId = reservation.getUserId();
             this.reservationTime = reservation.getReservationTime();
-            this.userCondition = reservation.getUserCondition();
             this.remittance = reservation.getRemittance();
             this.memo = reservation.getMemo();
 

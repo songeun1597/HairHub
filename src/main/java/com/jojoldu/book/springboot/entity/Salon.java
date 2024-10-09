@@ -2,13 +2,9 @@ package com.jojoldu.book.springboot.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.aspectj.weaver.ast.Var;
-import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -29,7 +25,7 @@ public class Salon {
     //홈페이지주소
     private String homepageUrl;
     //영업시간
-    private LocalDateTime businessHours;
+    private String businessHours;
     //주차여부
     private String parking;
     //전화번호

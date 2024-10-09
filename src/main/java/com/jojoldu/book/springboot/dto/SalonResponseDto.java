@@ -21,7 +21,7 @@ public class SalonResponseDto {
     //홈페이지주소
     private String homepageUrl;
     //영업시간
-    private final LocalDateTime businessHours;
+    private String businessHours;
     //주차여부
     private String parking;
     //전화번호

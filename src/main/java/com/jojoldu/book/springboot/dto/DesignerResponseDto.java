@@ -17,6 +17,7 @@ public class DesignerResponseDto {
     private String designerId;
     //미용실아이디
     private String salonId;
+
     //디자이너이름
     private String designerNickname;
     //프로필사진
@@ -43,6 +44,7 @@ public class DesignerResponseDto {
     public DesignerResponseDto(Designer designer) {
             this.designerId = designer.getDesignerId();
             this.salonId = (designer.getSalon() != null)?designer.getSalon().getSalonId(): null;
+
             this.designerNickname = designer.getDesignerNickname();
             this.designerPictureId = designer.getDesignerPictureId();
             this.designerMemo = designer.getDesignerMemo();

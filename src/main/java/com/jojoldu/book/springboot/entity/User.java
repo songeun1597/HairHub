@@ -10,17 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
-@Getter
-@Setter
+@Entity @Getter @Setter
 public class User {
     //회원정보
-    @Id @GeneratedValue
+    @Id
     //유저고유값
-    private UUID userToken; // UUID를 사용
-
-
-    //유저아이디
     private String userId;
     //이름
     private String name;
@@ -39,8 +33,6 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
-
-
     // 기본 생성자 (JPA용)
     protected User() {
     }
@@ -50,7 +42,6 @@ public class User {
         this.name = name;
         return this;
     }
-
 
     @Builder
     public User(String name, String email, String phone, String gender, String point, String password, Role role){
@@ -63,17 +54,10 @@ public class User {
         this.role = role;
     }
 
-    // 생성 시 자동으로 UUID를 생성
-    @PrePersist
-    public void prePersist() {
-        if (this.userToken == null) {
-            this.userToken = UUID.randomUUID();
-        }
-    }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reservation> reservations = new ArrayList<>(); // User에 연결된 디자이너 리스트
-
+//  private List<Favorite> favorites = new ArrayList<>();
 
     public void addReservation(Reservation reservation) {
         this.reservations.add(reservation);
@@ -83,5 +67,6 @@ public class User {
     public String getRoleKey() {
         return this.role.getKey();
     }
+
 }
 

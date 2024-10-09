@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.UUID;
 
 
 @Getter @Setter
@@ -13,32 +13,36 @@ import java.util.List;
 public class Reservation {
     @Id
     private String reservationId;
-    private String userToken;
     private LocalDateTime reservationTime;
-    private String userCondition;
     private String remittance;
     private String memo;
 
     @ManyToOne
-    @JoinColumn(name="userToken", insertable = false, updatable = false)  //Hibernate는 user_token 열을 삽입하거나 업데이트하지 않고, 외래 키로서만 사용할 수 있음
+    @JoinColumn(name="userId"    )
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="serviceId")
     private Service service;
 
     @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Review review;  //예약에 대한 리뷰
+    //private UserCondition;
 
     // Service ID를 반환하는 메서드 추가
     public String getServiceId() {
         return service != null ? service.getServiceId() : null; // service가 null이 아닐 때 ID 반환
     }
-
-    // 서비스의 디자이너를 가져오는 메서드
-    public Designer getDesigner() {
-        return service != null ? service.getDesigner() : null;
+    
+    public String getUserId(){
+        return user != null ? user.getUserId() : null;
     }
-
-
 }
+
+
+//    // 서비스의 디자이너를 가져오는 메서드
+//    public Designer getDesigner() {
+//        return service != null ? service.getDesigner() : null;
+//    }
+
+

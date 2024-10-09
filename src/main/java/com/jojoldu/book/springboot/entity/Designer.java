@@ -2,15 +2,10 @@ package com.jojoldu.book.springboot.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.aspectj.weaver.ast.Var;
-import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
-
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Getter
@@ -46,7 +41,9 @@ public class Designer {
 @JoinColumn(name = "salonId") // Salon의 salonId와 매핑
 private Salon salon; // 해당 디자이너가 소속된 미용실
 
-
+@OneToOne
+@JoinColumn(name="userId")  //User의 userId와 매핑
+private User user;
 
 @OneToMany(mappedBy = "designer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 private List<Service> services = new ArrayList<>(); //  Designer에 연결된 서비스 리스트, 초기화 추가
