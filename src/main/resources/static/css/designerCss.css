@@ -4,140 +4,305 @@
     align-items: center; /* 가운데 정렬 (수평) */
     justify-content: center; /* 가운데 정렬 (수직) */
     text-align: center; /* 텍스트 가운데 정렬 */
+    position: relative; /* 자식 요소의 절대 위치를 위해 relative 설정 */
+
 }
 
 #photo-container {  /* 전체 콘텐츠를 감싸는 div */
-width:650px;  /* 너비 */
+    width:650px;  /* 너비 */
     height: 650px;
-margin:0 auto;  /* 가로로 중앙에 배치 */
-padding:5px;	/* 테두리와 내용 사이의 패딩 여백 */
+    margin:0 auto;  /* 가로로 중앙에 배치 */
+    padding:5px;	/* 테두리와 내용 사이의 패딩 여백 */
 }
+
 #text {   /* 텍스트 부분을 감싸는 div */
-width:640px;  /* 너비 - 그림 너비 값에 맞춤 */
-border:none;  /* 테두리 */
-margin: 20px;
+    width:640px;  /* 너비 - 그림 너비 값에 맞춤 */
+    border:none;  /* 테두리 */
+    margin: 50px;
 }
 
-
-h3{
-    text-align: left;
-}
-h6{
-    text-align: left;
+h3{    text-align: left; }
+h6{    text-align: left; }
+h4 {   text-align: center; }
+h5{
+    text-align: center;
+    color: #333; /* 어두운 색상으로 텍스트 색상 조정 */
 }
 p {
-font-size: 1.0em; /* 글자 크기 */
-line-height: 2em; /* 줄간격 */
-font-weight: bold; /* 굵게 */
-text-align: left;  /* 가운데 정렬 */
-color: #888888;
+    font-size: 1.0em; /* 글자 크기 */
+    line-height: 2em; /* 줄간격 */
+    font-weight: bold; /* 굵게 */
+    text-align: left;  /* 가운데 정렬 */
+    color: #888888;
 }
+
 .accent {
 color: #DB592A; /* 글자색 */
 }
-.smalltext {
-font-size: 0.7em; /* 글자 크기 */
+
+#right-sidebar {
+    position: absolute; /*원하는 위치에 지정배치*/
+    top: 120px; /* 상단에서의 거리 */
+    right: 5%; /* 오른쪽에서의 거리 */
+    width: 20%; /* 예약 양식의 고정 폭 */
+    padding: 20px; /* 내부 여백 */
+    background-color: #E8F5E9; /* 배경색 */
+    border: 1px solid #8FEB44; /* 테두리 색상 변경 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+    font-family: Arial, sans-serif; /* 폰트 설정 */
+}
+#reservation-innerbox {
+    border: 1px solid #8FEB44;
+    border-radius: 5px; /* 모서리 둥글게 */
+    background-color: white; /* 배경색 */
+    padding: 15px;
+    margin-top: 10px;
+
+
+    .gender-selection {
+        display: flex; /* 가로로 나열 */
+        justify-content: center; /* 수평 가운데 정렬 */
+    }
+
+    .gender-box {
+        display: flex; /* 박스 형태로 가로 배치 */
+        align-items: center; /* 수직 가운데 정렬 */
+        justify-content: center; /* 수평 가운데 정렬 */
+        border: none; /* 테두리 색상 */
+        border-radius: 5px; /* 둥근 모서리 */
+        padding: 10px; /* 내부 여백 */
+        margin-right: 10px; /* 오른쪽 여백 */
+        cursor: pointer; /* 클릭 커서 모양 */
+        transition: background-color 0.3s; /* 배경색 변화 효과 */
+        background-color: #8feb44ab;
+        color: #f5f5f5;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 버튼에 그림자 추가 */
+
+    }
+
+    .gender-box:hover {
+
+        color: white; /* 호버 시 텍스트 색상 */
+        transform: translateY(-2px); /* 약간의 상승 효과 */
+        background-color: #7EDB3A; /* 호버 시 배경 색상 변화 */
+    }
+
+    input:checked + label.gender-box  {
+        background-color: #8FEB44; /* 선택된 박스 색상 */
+        color: #444444; /* 선택된 박스 텍스트 색상 */
+        border: 2px solid; /* 테두리 색상 */
+    }
+
+    .service-selection {
+        display: flex; /* 가로로 나열 */
+        flex-wrap: wrap; /* 줄바꿈 허용 */
+        justify-content: center; /* 수평 가운데 정렬 */
+
+    }
+
+    .service-box {
+        display: flex; /* 박스 형태로 가로 배치 */
+        align-items: center; /* 수직 가운데 정렬 */
+        justify-content: center; /* 수평 가운데 정렬 */
+        border: none; /* 테두리 색상 */
+        border-radius: 5px; /* 둥근 모서리 */
+        padding: 10px; /* 내부 여백 */
+        margin-right: 10px; /* 오른쪽 여백 */
+        margin-bottom: 10px; /* 아래 여백 추가 */
+        cursor: pointer; /* 클릭 커서 모양 */
+        transition: background-color 0.3s; /* 배경색 변화 효과 */
+        background-color: #8feb44ab;
+        color: #f5f5f5;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 버튼에 그림자 추가 */
+    }
+
+    input[name="service"],input[name="gender"]{
+        display: none; /* 실제 체크박스 숨김 */
+    }
+
+    .service-box:hover {
+        background-color: #7EDB3A; /* 호버 시 배경 색상 변화 */
+        color: white; /* 호버 시 텍스트 색상 */
+        transform: translateY(-2px); /* 약간의 상승 효과 */
+    }
+
+    input:checked + label.service-box {
+        background-color: #8FEB44; /* 선택된 박스 색상 */
+        color: #444444; /* 선택된 박스 텍스트 색상 */
+        border: 2px solid; /* 테두리 색상 */
+    }
+
+
+    label {
+        display: block; /* 라벨을 블록 요소로 만들어 줄바꿈 */
+        margin: 10px 0; /* 라벨 간 간격 */
+
+    }
+
+    button.btn, label.btn {
+        background-color: #8FEB44; /* 기본 버튼 배경색 */
+        color: white; /* 버튼 텍스트 색상 */
+        border: 2px solid #8FEB44; /* 버튼 테두리 */
+        padding: 10px; /* 버튼 내부 여백 */
+        border-radius: 5px; /* 버튼 모서리 둥글게 */
+        cursor: pointer; /* 커서 모양 변경 */
+        width: 100%; /* 버튼 너비 100% */
+        margin-top: 20px; /* 버튼 위쪽 여백 추가 */
+        text-align: center;
+        display: inline-block; /* 레이블을 버튼처럼 보이게 */
+        transition: background-color 0.3s, border-color 0.3s; /* 부드러운 전환 효과 */
+    }
+
+    /* 체크된 버튼 스타일 */
+
+    .btn-check {
+        display: none; /* 체크박스를 숨깁니다 */
+    }
+
+    .btn-check:checked + .btn {
+        background-color: #8FEB44;
+        color: white;
+        border-color:  #8FEB44;
+    }
+
+
+
+
+    /* 예약확정 버튼 스타일 */
+    .btn {
+        background-color: #FF5F5D; /* 버튼 배경 색상 */
+        color: white; /* 텍스트 색상 */
+        border-radius: 5px; /* 둥근 모서리 */
+        padding: 10px 15px; /* 패딩 추가 */
+        margin-top: 20px; /* 위쪽 여백 추가 */
+        cursor: pointer; /* 포인터 커서 */
+        transition: background-color 0.3s; /* 효과 추가 */
+    }
+
+    /* 예약확정 버튼 호버 효과 */
+    .btn:hover {
+        background-color: #FF3F3D; /* 호버 시 배경 색상 변화 */
+    }
+
+
+
+    #date.flatpickr-input{
+        margin:5px  ;
+
+    }
+
+
+    .pagination {
+        justify-content: center;
+    }
+
+    .pagination .page-item {
+        margin: 0 5px; /* 페이지 항목 간의 간격 */
+    }
+
+    .pagination .page-link {
+        border-radius: 5px;
+        border: 1px solid #E8F5E9; /* 페이지 링크의 테두리 색상 */
+        background-color: white; /* 페이지 링크의 배경 색상 */
+        color: #E8F5E9; /* 페이지 링크의 텍스트 색상 */
+        padding: 10px 15px; /* 페이지 링크의 패딩 */
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #8FEB44; /* 페이지 링크 호버 시 배경 색상 */
+        color: white; /* 페이지 링크 호버 시 텍스트 색상 */
+        border-color: #8FEB44; /* 페이지 링크 호버 시 테두리 색상 */
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #8FEB44; /* 활성 페이지 링크의 배경 색상 */
+        color: white; /* 활성 페이지 링크의 텍스트 색상 */
+        border-color: #8FEB44; /* 활성 페이지 링크의 테두리 색상 */
+    }
+
+    .pagination .page-item.disabled .page-link {
+        color: #ccc; /* 비활성 페이지 링크의 텍스트 색상 */
+        border-color: #ccc; /* 비활성 페이지 링크의 테두리 색상 */
+    }
+
+    #container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 가운데 정렬 (수평) */
+        justify-content: center; /* 가운데 정렬 (수직) */
+        text-align: center; /* 텍스트 가운데 정렬 */
+    }
+
+
+    .review-container {
+
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 1500px;
+    }
+
+    .table-container {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #ffffff; /* 하얀색 배경 */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th, .table td {
+        text-align: center;
+    }
+
+    .table thead th {
+        background-color: #8FEB44;;
+        color: white;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        padding: 0;
+    }
 }
 
-/* 추가된 버튼 스타일 */
-.button-container {
-    margin-top: 20px; /* 버튼과 위 내용 간의 여백 */
-    text-align: center; /* 버튼을 중앙에 배치 */
-}
-
-.btn-reserve {
-    padding: 6px 12px; /* 줄어든 패딩 */
-    border-radius: 10px; /* 작아진 border-radius */
-    border: 2px solid #888; /* 회색 테두리 */
-    background-color: white;
-    color: #333; /* 어두운 회색 텍스트 */
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-    text-decoration: none; /* 링크의 기본 밑줄 제거 */
-}
-
-/* 마우스 오버 시 스타일 */
-.btn-reserve:hover {
-    background-color: #e2e6ea; /* 회색톤 호버 효과 */
-    color: #333;
-    border-color: #E8F5E9;
-    text-decoration: none; /* 링크의 기본 밑줄 제거 */
-}
 
 
-
-
-.pagination {
-    justify-content: center;
-}
-
-.pagination .page-item {
-    margin: 0 5px; /* 페이지 항목 간의 간격 */
-}
-
-.pagination .page-link {
-    border-radius: 5px;
-    border: 1px solid #E8F5E9; /* 페이지 링크의 테두리 색상 */
-    background-color: white; /* 페이지 링크의 배경 색상 */
-    color: #E8F5E9; /* 페이지 링크의 텍스트 색상 */
-    padding: 10px 15px; /* 페이지 링크의 패딩 */
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.pagination .page-link:hover {
-    background-color: #8FEB44; /* 페이지 링크 호버 시 배경 색상 */
-    color: white; /* 페이지 링크 호버 시 텍스트 색상 */
-    border-color: #8FEB44; /* 페이지 링크 호버 시 테두리 색상 */
-}
-
-.pagination .page-item.active .page-link {
-    background-color: #8FEB44; /* 활성 페이지 링크의 배경 색상 */
-    color: white; /* 활성 페이지 링크의 텍스트 색상 */
-    border-color: #8FEB44; /* 활성 페이지 링크의 테두리 색상 */
-}
-
-.pagination .page-item.disabled .page-link {
-    color: #ccc; /* 비활성 페이지 링크의 텍스트 색상 */
-    border-color: #ccc; /* 비활성 페이지 링크의 테두리 색상 */
-}
-
-#container{
+/* 시간 슬롯 버튼 스타일 */
+.time-slots {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* 가운데 정렬 (수평) */
-    justify-content: center; /* 가운데 정렬 (수직) */
-    text-align: center; /* 텍스트 가운데 정렬 */
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-left: 35px;
 }
 
-
-.review-container {
-
-    margin: 20px 0;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1500px;
-}
-
-.table-container {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #ffffff; /* 하얀색 배경 */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.table th, .table td {
-    text-align: center;
-}
-
-.table thead th {
-    background-color: #8FEB44;
+.time-slot-button {
+    padding: 10px 20px;
+    background-color: #8feb44ab;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
     color: white;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 버튼에 그림자 추가 */
+    transition: background-color 0.3s, transform 0.2s; /* 효과 추가 */
 }
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    padding: 0;
+
+/* 버튼 호버 효과 */
+.time-slot-button:hover {
+    background-color: #7EDB3A; /* 호버 시 배경 색상 변화 */
+    transform: translateY(-2px); /* 약간의 상승 효과 */
 }
+
+/* 비활성화된 버튼 스타일 */
+.time-slot-button.disabled {
+    background-color: #d3d3d3; /* 비활성화된 배경 색상 */
+    color: #999; /* 비활성화된 텍스트 색상 */
+    cursor: not-allowed; /* 비활성화된 상태 커서 */
+}
+

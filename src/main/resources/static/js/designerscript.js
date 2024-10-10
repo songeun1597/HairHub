@@ -33,8 +33,9 @@ reviews.forEach((review, index) => {
     const num = index + 1;
 
     // Mustache 템플릿에 데이터 바인딩
-    const rendered = Mustache.render(template, { ...review, num });
+    const rendered = Mustache.render(template, {...review, num});
 
     // 렌더링된 HTML을 테이블에 추가
     reviewBody.insertAdjacentHTML('beforeend', rendered);
 });
+
