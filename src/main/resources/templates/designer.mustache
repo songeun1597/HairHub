@@ -61,6 +61,8 @@
         <label for="date"><h5>예약 날짜</h5></label>
         <input type="date" id="date" name="date" required>
 <hr>
+
+
             <label for="timeSlots"><h5>예약 시간 선택</h5></label>
             <div id="timeSlots" class="time-slots"></div>
 <hr>
@@ -71,7 +73,7 @@
 </div>
 
 <div id="container">
-    <div  class= "review-container">
+    <div class= "review-container">
         <div class="grid text-center">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -95,9 +97,20 @@
                             <th style="width: 100px;">재방문수</th>
                         </tr>
                         </thead>
-                        <tbody id = "review-body">
-                        <!--Mustache 템플릿으로 데이터가 여기에 추가됨-->
-
+                        <tbody id="review-body">
+                        {{#reviews}}
+                            <tr>
+                                <td>{{num}}</td>
+                                <td>{{reservationDate}}</td>
+                                <td>{{userId}}</td>
+                                <td>{{reviewContent}}</td>
+                                <td>{{serviceName}}</td>
+                                <td><img src="{{reviewPictureId}}" alt="Review Image" style="width: 50px;"></td>
+                                <td>{{reviewPrice}}</td>
+                                <td>{{reviewRating}}</td>
+                                <td>{{revisiting}}</td>
+                            </tr>
+                        {{/reviews}}
                         </tbody>
                     </table>
                 </div>
@@ -129,103 +142,10 @@
 </div>
 
 
-    <!-- Flatpickr JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script>
-    // 영업시간 설정 (예: 10시부터 20시까지)
-    const workStartHour = 10;
-    const workEndHour = 20;
-    const timeSlotsContainer = document.getElementById("timeSlots");
-
-    // 예약된 시간을 서버로부터 받아왔다고 가정 (예: 13:00, 15:30은 예약된 상태)
-    const bookedTimes = ["13:00", "15:30"];
-
-    // 현재 시간에서 2시간을 더한 시간을 반환하는 함수
-    function getMinTime() {
-        const now = new Date();
-        now.setHours(now.getHours() + 2); // 현재 시간에서 2시간 더하기
-        now.setMinutes(Math.ceil(now.getMinutes() / 30) * 30); // 30분 단위로 올림
-        return now;
-    }
 
 
-    // 현재 시간을 비교해 버튼 비활성화 여부 결정
-    function isPastTime(slotTime) {
-        const now = new Date();
-        const [hours, minutes] = slotTime.split(":").map(Number);
-        const slotDate = new Date();
-        slotDate.setHours(hours, minutes, 0, 0);
-
-        return slotDate < getMinTime();
-
-
-    }
-
-    // 시간 슬롯을 동적으로 생성하는 함수
-    function generateTimeSlots() {
-
-        for (let hour = workStartHour; hour < workEndHour; hour++) {
-            for (let minute of [0, 30]) {
-                const timeSlot = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
-
-                // 버튼 생성
-                const button = document.createElement("button");
-                button.textContent = timeSlot;
-                button.classList.add("time-slot-button");
-
-                // 이미 예약된 시간이거나 과거 시간인 경우 비활성화
-                if (bookedTimes.includes(timeSlot) || isPastTime(timeSlot)) {
-                    button.disabled = true;
-                    button.classList.add("disabled"); // 스타일 추가
-                }
-
-                // 클릭 이벤트
-                button.addEventListener("click", () => {
-                    // 사용자가 선택한 시간을 처리
-                    console.log(`예약 시간 선택: ${timeSlot}`);
-                });
-
-                // 컨테이너에 버튼 추가
-                timeSlotsContainer.appendChild(button);
-            }
-        }
-    }
-    // 시간 슬롯 생성
-    generateTimeSlots();
-
-
-
-    // Flatpickr 초기화
-    flatpickr("#date", {
-        inline: true, // 페이지에 달력이 항상 표시되도록 설정
-        defaultDate: "today", // 오늘 날짜를 기본으로 설정
-        minDate: "today", // 오늘 이전 날짜는 선택할 수 없게 설정
-
-    });
-
-
-    // Flatpickr 시간 설정 (30분 간격, 2시간 이후부터 선택 가능)
-    flatpickr("#time", {
-        enableTime: true, // 시간 선택 활성화
-        noCalendar: true, // 달력 숨기기 (시간만 선택)
-        dateFormat: "H:i", // 시간 형식 설정 (24시간 형식)
-        time_24hr: true, // 24시간 형식 사용
-        minuteIncrement: 30, // 30분 간격으로 설정
-        inline: true, // 시간 선택을 버튼 형태로 보이게 설정
-        onReady: function(selectedDates, dateStr, instance) {
-            instance.set('minTime', getMinTime()); // 최소 시간 설정
-
-        },
-        onOpen: function(selectedDates, dateStr, instance) {
-            instance.set('minTime', getMinTime()); // 달력이 열릴 때 최소 시간 다시 설정
-
-        }
-    });
-
-</script>
-
-{{!<script src="/js/designercript.js" defer></script>
-
-
+<script src="/js/designerscript.js" defer></script>
 
 {{>layout/footer}}

@@ -1,0 +1,29 @@
+{{>layout/header}}
+<link rel="stylesheet" href="/css/designerListCss.css" />
+{{#userNm}}
+    {{>layout/userHeadline.mustache}}
+{{/userNm}}
+
+{{^userNm}}
+    {{>layout/guestHeadline}}
+{{/userNm}}
+
+<div class="container">
+    <h1>디자이너 리스트</h1>
+    <div>
+        {{#designers}}
+            <div>
+                <h2>{{designerNickname}}</h2>
+                <p>별점: {{rating}}</p>
+                <p>미용실: {{salonName}}</p>
+                <p>주소: {{address}}</p>
+                <img src="{{designerPictureId}}" alt="{{designerNickname}}의 사진">
+            </div>
+        {{/designers}}
+        {{^designers}}
+            <p>디자이너가 없습니다.</p>
+        {{/designers}}
+    </div>
+
+
+{{>layout/footer}}

@@ -66,4 +66,6 @@ public class DesignerResponseDto {
 
     }
 
+    public DesignerResponseDto(String s, double v, String s1, String s2, String s3) {
+    }
 }

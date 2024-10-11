@@ -1,7 +1,30 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/mainCss.css" />
-{{>layout/guestHeadline}}
+{{#userNm}}
+   {{>layout/userHeadline.mustache}}
+{{/userNm}}
 
+{{^userNm}}
+    {{>layout/guestHeadline}}
+{{/userNm}}
+
+<!--로그인 기능 영역-->
+<div class="row">  <!--한 줄 (row)을 정의-->
+    <div class="col-md-6">
+        <a href="/posts/save" role="botton" class="btn btn-primary">글 등록</a>
+
+        {{#userNm}}  <!-- userName이라는 변수가 존재하고, 그 값이 참일 때 렌더링되는 블록 -->
+            Logged in as : <span id="user">{{userNm}}</span>  <!--HTML의 <span> 태그는 인라인 요소로, 특정 스타일이나 텍스트를 감싸는 데 사용-->
+            <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+        {{/userNm}}
+        {{^userNm}}  <!--userName 변수가 존재하지 않거나 그 값이 거짓일 때 렌더링되는 블록-->
+            <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+            <a href="/oauth2/authorization/naver" class="btn btn-success active" role="button">Naver Login</a>
+        {{/userNm}}
+
+    </div>
+</div>
+<br>
 
 <div class="search">
     <div class="search-container">
@@ -197,7 +220,6 @@
         <button class="scroll-button right" aria-label="Scroll Right">&#10095;</button>
     </div>
 </div>
-
 
 
 <script src="/js/mainscript.js" defer></script>

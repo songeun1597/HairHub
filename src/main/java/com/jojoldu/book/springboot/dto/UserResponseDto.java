@@ -23,7 +23,7 @@ public class UserResponseDto {
     //역할
     private String role;
     //포일트
-    private String point;
+    private int point;
     //비밀번호
     private String password;
 

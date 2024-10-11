@@ -16,6 +16,7 @@ public class Reservation {
     private LocalDateTime reservationTime;
     private String remittance;
     private String memo;
+    private int revisitCount;
 
     @ManyToOne
     @JoinColumn(name="userId"    )

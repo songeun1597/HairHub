@@ -10,13 +10,27 @@ import java.time.LocalDateTime;
 @Getter @Setter @Entity
 public class Review {
     @Id
-    private String reviewId;
-    private String reviewContent;
-    private String reviewPictureId;
-    private Integer reviewPrice;
-    //별점
-    private Integer reviewRating;
 
+private String reviewId;
+private String reviewPictureId;
+private Integer reviewRating;
+    private String reviewContent;
+    private Integer reviewPrice;
+    private Integer num;
+
+//
+//@Getter @Setter @Entity
+//    public class Review {
+//    @Id
+//        private String num;
+//        private String reservationDate;
+//        private String userId;
+//        private String reviewContent;
+//        private String serviceName;
+//        private String thumbnail;
+//        private Integer reviewPrice;
+//        private Integer rating;
+//        private Integer revisiting;
 
     // 예약과 리뷰는 일대일 관계로 수정
     @OneToOne

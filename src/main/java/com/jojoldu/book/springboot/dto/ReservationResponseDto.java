@@ -23,7 +23,8 @@ public class ReservationResponseDto {
     private String remittance;
     //예약메모
     private String memo;
-
+    //재방문수
+    private int revisitCount;
 
     public ReservationResponseDto(Reservation reservation) {
             this.reservationId = reservation.getReservationId();
@@ -32,6 +33,7 @@ public class ReservationResponseDto {
             this.reservationTime = reservation.getReservationTime();
             this.remittance = reservation.getRemittance();
             this.memo = reservation.getMemo();
+            this.revisitCount = reservation.getRevisitCount();
 
 
 

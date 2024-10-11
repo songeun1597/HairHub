@@ -25,7 +25,7 @@ public class User {
     //성별
     private String gender;
     //포일트
-    private String point;
+    private int point;
     //비밀번호
     private String password;
     //역할
@@ -44,7 +44,7 @@ public class User {
     }
 
     @Builder
-    public User(String name, String email, String phone, String gender, String point, String password, Role role){
+    public User(String name, String email, String phone, String gender, int point, String password, Role role){
         this.name = name;
         this.email = email;
         this.phone = phone;
