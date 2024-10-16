@@ -1,28 +1,37 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/salonCss.css" />
-{{>layout/guestHeadline}}
+
 
 
 <div id="salon">
 <div id="photo-container" style="background-image: url('/images/예쁜미용실1.jpg'); background-size: cover; background-position: center;">
 </div>
     <div id="text">
+        <div class="salon-introduce">
         <h3>{{salon.salonName}}</h3><br>
+        <p><TEMD HAIR ROOM 템드헤어룸 당산역점>
 
-        <p>{{salon.salonIntroduce}}</p><br>
+            혼자 가면 빨리 가지만, 함께 가면 멀리 갈 수 있다.<br><br>
+
+            우리, 그리고 고객과 함께 즐기면서 함께 가자.<br>
+            그것이 우리의 철학이며 사명이다.<br>
+            그런 우리들을 템드헤어룸이라 지칭한다.<br>
+            {{salon.salonIntroduce}}</p><br>
         <hr>
-
+        </div>
         <div id = "introduce-container">
 
             <div id="map-container" style="background-image: url('/images/예쁜미용실지도.jpg'); background-size: cover; background-position: center;"></div><br>
 
 
             <div id= "salon-memo-container">
-            <p> 주소 : {{salon.address}}<br>
-                영업시간 : {{salon.businessHours}}<br>
-                주차여부 : {{salon.parking}}<br>
-                홈페이지주소 : <a href ={{salon.homepageUrl}}></a> <br>
+            <h6> 주소 : {{salon.address}}</h6>
+            <h6> 영업시간 : {{salon.businessHours}}</h6>
+              <p>  주차여부 : {{salon.parking}}<br>
+                  홈페이지 주소: www.temdhairroom.co.kr<br>
+                {{!홈페이지주소 : <a href ={{salon.homepageUrl}}
                 전화번호 : {{salon.tel}}<br>
+              </p>
             </div>
         </div>
         <hr>

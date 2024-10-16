@@ -1,0 +1,112 @@
+.reviewList-container {
+    width: 80%;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 10%;
+}
+
+.review-list-outbox{
+    display: flex;
+    flex-direction: row; /* 사이드바와 카드가 나란히 배치되도록 설정 */
+}
+.sidebar {
+    width: 250px; /* 사이드바 너비 */
+    background-color: #f9f9f9; /* 배경색 */
+    border: 1px solid #e0e0e0; /* 테두리 */
+    padding: 20px; /* 내부 여백 */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    margin-right: 20px; /* 오른쪽 여백 */
+    position: sticky; /* 스크롤 시 고정 */
+    top: 20px; /* 고정 위치 */
+    flex-shrink: 0; /* 사이드바가 줄어들지 않도록 설정 */
+}
+
+
+.sidebar h2 {
+    margin: 0 0 15px; /* 제목 아래 여백 */
+    font-size: 1.5em; /* 제목 폰트 크기 */
+    color: #333; /* 제목 색상 */
+}
+
+.sidebar ul {
+    list-style: none; /* 리스트 스타일 제거 */
+    padding: 0; /* 패딩 제거 */
+    margin: 0; /* 마진 제거 */
+}
+
+.sidebar li {
+    margin-bottom: 10px; /* 항목 간의 여백 */
+}
+
+.sidebar a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: #555; /* 링크 색상 */
+    font-size: 1.2em; /* 링크 폰트 크기 */
+    transition: color 0.3s; /* 색상 전환 효과 */
+}
+
+.sidebar a:hover {
+    color: #8FEB44; /* 호버 시 색상 변화 */
+}
+
+.active {
+    font-weight: bold; /* 현재 페이지 강조 */
+    color: #8FEB44; /* 현재 페이지 색상 */
+}
+
+.review-list {
+    width: 100%;
+    display: flex;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+    flex-direction: column; /* 세로로 배열됨 */
+}
+
+.review-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    height: 250px;
+    width: 100%;
+}
+
+.review-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.review-info {
+    flex-grow: 1;
+    margin-left: 50px;
+}
+
+
+.star-rating {
+    font-size: 1.2em; /* 별점 크기 조정 */
+}
+
+.star-rating:before {
+    content: '\2605'; /* 전체 별 */
+    color: #f39c12; /* 별 색상 */
+}
+.pagination {
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px;
+    margin: 0 5px;
+}
+
+@media (min-width: 1024px) {
+    .review-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}

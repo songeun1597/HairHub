@@ -12,12 +12,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class DesignerResponseDto {
+public class    DesignerResponseDto {
 
     private String designerId;
     //미용실아이디
     private String salonId;
-
     //디자이너이름
     private String designerNickname;
     //프로필사진
@@ -41,10 +40,12 @@ public class DesignerResponseDto {
 
     private List<ServiceResponseDto> services;
 
+    private String salonName;
+    private String address;
+
     public DesignerResponseDto(Designer designer) {
             this.designerId = designer.getDesignerId();
             this.salonId = (designer.getSalon() != null)?designer.getSalon().getSalonId(): null;
-
             this.designerNickname = designer.getDesignerNickname();
             this.designerPictureId = designer.getDesignerPictureId();
             this.designerMemo = designer.getDesignerMemo();
@@ -56,6 +57,8 @@ public class DesignerResponseDto {
             this.position = designer.getPosition();
             this.workTime = designer.getWorkTime();
 
+            this.salonName = designer.getSalon().getSalonName();
+            this.address = designer.getSalon().getAddress();
 
         // 서비스 목록 변환
         if (designer.getServices() != null) {
@@ -67,5 +70,27 @@ public class DesignerResponseDto {
     }
 
     public DesignerResponseDto(String s, double v, String s1, String s2, String s3) {
+    }
+
+    public DesignerResponseDto(String designerId, double rating, String salonName, String address) {
+    }
+
+    @Override
+    public String toString() {
+        return "DesignerResponseDto{" +
+                "designerId='" + designerId + '\'' +
+                ", salonId='" + salonId + '\'' +
+                ", designerNickname='" + designerNickname + '\'' +
+                ", designerPictureId='" + designerPictureId + '\'' +
+                ", designerMemo='" + designerMemo + '\'' +
+                ", designerIntroduce='" + designerIntroduce + '\'' +
+                ", snsId='" + snsId + '\'' +
+                ", workTime='" + workTime + '\'' +
+                ", holiday='" + holiday + '\'' +
+                ", accumulativeBookings=" + accumulativeBookings +
+                ", rating=" + rating +
+                ", position='" + position + '\'' +
+                ", services=" + services +
+                '}';
     }
 }

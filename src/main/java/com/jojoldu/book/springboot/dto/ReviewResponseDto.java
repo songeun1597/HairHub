@@ -29,14 +29,12 @@ public class ReviewResponseDto {
 //        private Integer rating;
 
 
-@Setter
+    @Setter
         private LocalDateTime reservationDate;
-@Setter
+    @Setter
         private String userId;
-
     @Setter
         private String serviceName;
-
     @Setter
         private Integer revisiting;
 

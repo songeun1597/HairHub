@@ -27,14 +27,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()  //HTTP 요청에 대한 권한 부여 설정을 정의
 
                 //권한 관리 대상을 지정하는 옵션
-                    .antMatchers("/", "/designer/**",  "/desiner/**", "/salon/**", "/css/**", "/main/**", "/images/**", "/js/**", "/h2-console/**", "/designerList/**").permitAll()  //특정 URL 패턴에 대한 요청을 인증 없이 접근할 수 있도록 허용(permitAll()옵션을 통해 전체 열람 권한부여)
+                    .antMatchers("/", "/designer/**",  "/desiner/**", "/salon/**", "/css/**", "/main/**", "/images/**", "/js/**", "/h2-console/**", "/designerList/**", "/reviewList").permitAll()  //특정 URL 패턴에 대한 요청을 인증 없이 접근할 수 있도록 허용(permitAll()옵션을 통해 전체 열람 권한부여)
                     .antMatchers("/api/v1/**").hasRole(Role.USER.name())  ///api/v1/**로 시작하는 모든 경로에 대해 USER 역할을 가진 사용자만 접근할 수 있도록 설정
 
                 //설정된 값을 이외의 나머지 URL, authenticated()을 추가하여 나머지 URL들은 모두 인증된 사용자들에게만 허용
                     .anyRequest().authenticated()
                 .and()
                     .logout()
-                        .logoutSuccessUrl("/")  //로그아웃 성공 후 리디렉션할 URL을 설정
+                        .logoutSuccessUrl("/main")  //로그아웃 성공 후 리디렉션할 URL을 설정
                 .and()
                     .oauth2Login()  //OAuth2 로그인 기능을 활성화
                         .userInfoEndpoint()  //로그인 성공 이후 사용자 정보를 가져올때 설정 담당

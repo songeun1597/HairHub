@@ -28,8 +28,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
-//        String accessToken = userRequest.getAccessToken().getTokenValue();  // 토큰 값 가져오기
-//        System.err.println("Received OAuth2 Access Token: " + accessToken);  // 토큰 값 출력
+        String accessToken = userRequest.getAccessToken().getTokenValue();  // 토큰 값 가져오기
+        System.err.println("Received OAuth2 Access Token: " + accessToken+"00000000000000000000000000000000000000000000000000000000000000000000000");  // 토큰 값 출력
 
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();  //delegate의 변수 타입: OAuth2UserService<OAuth2UserRequest, OAuth2User>
                                                                                                      //이 인터페이스는 OAuth2UserRequest를 입력으로 받아 OAuth2User를 반환하는 메서드를 제공하는 역할
@@ -48,6 +48,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         User user = saveOrUpdate(attributes);
         httpSession.setAttribute("user", new SessionUser(user));
+        System.out.println(user +"7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777");
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),  //Collections.singleton(...): 단일 객체를 담고 있는 불변의 Set 컬렉션을 만듬

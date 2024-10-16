@@ -10,4 +10,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)  //애너테이션 정보의 유지 기간을 지정
                                      //런타임 동안 유지되며, 리플렉션을 통해 접근할 수 있음
 public @interface LoginUser {  //이 파일을 어노테이션 클래스로 지정
+
 }

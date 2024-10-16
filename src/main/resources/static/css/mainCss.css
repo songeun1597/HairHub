@@ -54,7 +54,7 @@ a:hover {
 
 #main-box {
     max-width: 1920px;
-    height: 2000px;
+    height: 1700px;
     margin: 0 auto;
     position: relative; /* 자식 요소의 절대 위치 지정 가능 */
     background-size: cover;
@@ -142,7 +142,6 @@ a:hover {
     display: flex;
     justify-content: space-around;
     /*background-color: #FF5F5D;  #8FEB44;*/
-
     background-color:#8feb44ab;
     height:200px;
     justify-content: center; /* 자식 요소를 가로 방향으로 중앙 정렬 */
@@ -162,18 +161,26 @@ a:hover {
     text-align: center; /* alt 텍스트 중앙 정렬 */
     margin: 10px; /* 각 서비스 간의 간격 */
     width: 160px;
-}
 
+}
 
 /* 각 KingOfService의 스타일 설정 */
 .mainbutton img {
-    width: 75px; /* 이미지의 너비 설정 */
-    height: auto; /* 비율에 맞게 높이 조정 */
+    width: 80px; /* 이미지의 너비 설정 */
+    height: 80px; /* 비율에 맞게 높이 조정 */
     flex-direction: column;
     border-radius: 18px; /* 둥근 모서리 */
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4); /* 더 밝은 그림자 */
+    border: solid #8feb44;
+    /*box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4);  더 밝은 그림자 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.mainbutton img:hover {
+
+    transform: translateY(-10px) scale(1.2);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
 
 
 /* recommend-container의 스타일 */
@@ -272,3 +279,4 @@ p{
     margin-top: 100px;
     display: flex;
 }
+

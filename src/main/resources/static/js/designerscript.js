@@ -6,7 +6,7 @@ const timeSlotsContainer = document.getElementById("timeSlots");
 
 // 예약된 시간을 서버로부터 받아왔다고 가정 (예: 13:00, 15:30은 예약된 상태)
 const bookedTimes = {"2024-10-11": ["13:00", "15:30"],
-    "2024-10-12": ["12:00", "16:00"]}
+    "2024-10-12": ["12:00", "16:00"],"2024-10-15": ["13:00", "15:30"],"2024-10-16": ["12:00", "16:00"],}
 
 function isBookedTime(date, timeSlot) {
     const bookedForDate = bookedTimes[date] || []; // 해당 날짜의 예약된 시간 목록을 가져옴

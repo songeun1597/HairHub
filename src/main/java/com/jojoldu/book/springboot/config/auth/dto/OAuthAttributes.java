@@ -13,15 +13,15 @@ public class OAuthAttributes {
     private String nameAttributeKey;
     private String name;
     private String email;
-    private String picture;
+    //private String picture;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture){
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email){
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
         this.email = email;
-        this.picture = picture;
+        //this.picture = picture;
     }
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes){  //static 키워드는 이 메서드를 클래스 레벨에서 호출할 수 있음
@@ -35,7 +35,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
-                .picture((String) attributes.get("picture"))
+                //.picture((String) attributes.get("picture"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();  //builder()로 시작된 객체 생성 과정을 마무리하고, 최종적으로 OAuthAttributes 객체를 생성하여 반환
@@ -47,7 +47,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) response.get("name"))
                 .email((String) response.get("email"))
-                .picture((String) response.get("profile_image"))
+                //.picture((String) response.get("profile_image"))
                 .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -56,6 +56,7 @@ public class OAuthAttributes {
         return User.builder()
                 .name(name)
                 .email(email)
+                //.picture(picture)
                 .role(Role.GUEST)  //엔티티를 생성하는 시점은 처음 가입할때이므로 기본권한은 GUEST로 부여
                 .build();
     }

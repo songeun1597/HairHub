@@ -12,12 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor  //final 필드와 @NonNull이 붙은 필드에 대해 자동으로 생성자를 생성
 @Controller  //@Controller를 사용한 클래스는 스프링의 빈으로 등록되어 의존성 주입이 가능
+
 public class IndexController {
     private final PostsService postsService;
     private final DesignerService designerService;
@@ -25,7 +28,7 @@ public class IndexController {
     private final ServiceService serviceService;
     private final ReviewService reviewService;
     private final ReservationService reservationService;
-
+    private final HttpSession httpSession;
 
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {  //Model 객체는 뷰에 데이터를 전달하는 데 사용
@@ -41,13 +44,13 @@ public class IndexController {
     @GetMapping("/main")
     public String main(Model model, @LoginUser SessionUser user) {
 
+        SessionUser sessionuser = (SessionUser) httpSession.getAttribute("user");
+        System.out.println(user + "11111111111111111111111111111111111111111111111111111111111111");
 
         if (user != null) {
-            //     model.addAttribute("userName", user.getName());
-            System.out.println("test : " + user.getName());
             model.addAttribute("userNm", user.getName());
-        }
 
+        }
         return "main";  //"main"라는 이름의 뷰를 반환
     }
 
@@ -73,12 +76,9 @@ public class IndexController {
             } else {
                 model.addAttribute("salon", null);  //Salon이 없는 경우
             }
-
             // 디자이너의 리뷰 목록 추가
             List<ReviewResponseDto> reviews = reviewService.getReviewsByDesignerId(id);
             model.addAttribute("reviews", reviews);
-
-
         } else {
             // 디자이너를 찾을 수 없는 경우
             model.addAttribute("error", "디자이너를 찾을 수 없습니다.");
@@ -86,28 +86,52 @@ public class IndexController {
         return "designer";
     }
 
-
     @GetMapping("/salon/{id}")
     public String salon(Model model, @PathVariable String id) {
         model.addAttribute("salon", salonService.findById(id));
 
         return "salon";
     }
+
+    @GetMapping("/designerList")
+
+    public String getDesignerList(Model model,
+                                  @RequestParam(defaultValue = "1") int page,
+                                  @RequestParam(defaultValue = "20") int itemsPerPage) {
+        List<DesignerResponseDto> designerList = designerService.getDesignerList(page, itemsPerPage);
+        System.out.println(page + itemsPerPage + "18181818181818181818181818181818181818181818181818181818");
+
+        long totalItems = designerService.getTotalCount(); // 전체 디자이너 수
+        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
+        System.out.println(totalPages + "181818181818181818181818181818181818181818181818181818187777777777777777");
+        model.addAttribute("designers", designerList); // 디자이너 목록 추가
+        model.addAttribute("currentPage", page); // 현재 페이지 번호 추가
+        model.addAttribute("totalPages", totalPages); // 총 페이지 수 추가
+        model.addAttribute("itemsPerPage", itemsPerPage); // 페이지당 아이템 수 추가
+
+        return "designerList"; // 뷰 이름 (HTML 템플릿 파일 이름)
+    }
+
+    @GetMapping("/reviewList")
+    public String getReviewList(Model model,
+        @RequestParam(defaultValue = "1") int page,
+        @RequestParam(defaultValue = "20") int itemsPerPage) {
+            List<DesignerResponseDto> designerList = designerService.getDesignerList(page, itemsPerPage);
+
+
+            long totalItems = designerService.getTotalCount(); // 전체 디자이너 수
+            int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
+
+            model.addAttribute("designers", designerList); // 디자이너 목록 추가
+            model.addAttribute("currentPage", page); // 현재 페이지 번호 추가
+            model.addAttribute("totalPages", totalPages); // 총 페이지 수 추가
+            model.addAttribute("itemsPerPage", itemsPerPage); // 페이지당 아이템 수 추가
+
+
+        return "reviewList";
+    }
+
 }
-
-//
-//    @GetMapping("/designerList")
-//    public String getDesignerList(Model model) {
-//        List<DesignerResponseDto> designers = designerService.getDesignerList();
-//
-//        model.addAttribute("designers", designers); // 모델에 디자이너 리스트 추가
-//        return "designerList";
-//    }
-//    }
-
-
-
-
 
 
 //
