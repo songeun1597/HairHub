@@ -31,6 +31,7 @@ public class Service {
     @JoinColumn(name ="designerId")  //Designer의 designerId와 매핑
     private Designer designer;  //해당 서비스가 속한 디자이너
 
+
     // ID 자동 생성 로직 추가 (UUID 사용 예시)
     @PrePersist
     public void prePersist() {

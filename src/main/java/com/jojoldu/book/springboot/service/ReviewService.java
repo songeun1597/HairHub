@@ -8,11 +8,14 @@ import com.jojoldu.book.springboot.entity.Review;
 import com.jojoldu.book.springboot.repository.DesignerRepository;
 import com.jojoldu.book.springboot.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewService {
@@ -21,6 +24,7 @@ public class ReviewService {
     private ReviewRepository reviewRepository;
     @Autowired
     private DesignerRepository designerRepository;
+
 
     // 리뷰 ID로 리뷰 조회
     public ReviewResponseDto findById(String id) {
@@ -43,18 +47,37 @@ public class ReviewService {
                 reviewDto.setUserId(reservation.getUserId());
                 reviewDto.setServiceName(service.getServiceName());
                 reviewDto.setRevisiting(reservation.getRevisitCount());
-
                 reviewList.add(reviewDto);
             }
-
         }
-
         return reviewList;
+    }
+
+    // 모든 리뷰 조회 (디자이너 정보 포함)
+    public List<ReviewResponseDto> getAllReviewsWithDesignerInfo() {
+        List<Review> reviews = reviewRepository.findAll();  // 모든 리뷰 조회
+        return reviews.stream().map(review -> {
+            ReviewResponseDto reviewDto = new ReviewResponseDto(review);
+            reviewDto.setReservationDate(review.getReservation().getReservationTime());
+            reviewDto.setUserId(review.getReservation().getUserId());
+            reviewDto.setServiceName(review.getReservation().getService().getServiceName());
+            reviewDto.setRevisiting(review.getReservation().getRevisitCount());
+            reviewDto.setAddress(review.getReservation().getService().getDesigner().getSalon().getAddress());
+            reviewDto.setSalonName(review.getReservation().getService().getDesigner().getSalon().getSalonName());
+            // 디자이너 닉네임 추가
+            reviewDto.setDesignerNickname(review.getReservation().getService().getDesigner().getDesignerNickname());
+            return reviewDto;
+        }).collect(Collectors.toList());
+    }
+
+    public long getTotalCount() {
+        return reviewRepository.count();
     }
     // 디자이너 ID로 리뷰 목록 조회
     //public List<Review> getReviewsByDesignerId(String designerId) {
        // return reviewRepository.findReviewsByDesignerId(designerId);
     //}
+
 }
 
 

@@ -7,6 +7,9 @@ import com.jojoldu.book.springboot.entity.Review;
 import com.jojoldu.book.springboot.entity.Salon;
 import com.jojoldu.book.springboot.repository.DesignerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,11 +33,15 @@ public class DesignerService {
     }
 
     public List<DesignerResponseDto> getDesignerList(int page, int itemsPerPage) {
-        // 시작 인덱스 계산
-        int offset = (page - 1) * itemsPerPage;
+        Pageable pageable = PageRequest.of(page-1, itemsPerPage);
+        Page<Designer> all = designerRepository.findAll(pageable);
+        List<Designer> designers = all.getContent();
 
-        List<Designer> designers = designerRepository.findAllWithPagination(offset, itemsPerPage);
-        System.out.println(offset +"+++++++++++++++++++++++++++++"+  designers.toString()+"---------------------------------------------------"+ itemsPerPage);
+        // 시작 인덱스 계산
+//        int offset = (page - 1) * itemsPerPage;
+//
+//        List<Designer> designers = designerRepository.findAllWithPagination(offset, itemsPerPage);
+//        System.out.println(offset +"+++++++++++++++++++++++++++++"+  designers.toString()+"---------------------------------------------------"+ itemsPerPage);
 
         // 디자이너 정보를 담을 'responseDtos' 리스트 생성
         List<DesignerResponseDto> responseDtos = new ArrayList<>();

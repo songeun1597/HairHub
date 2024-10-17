@@ -30,7 +30,7 @@ public class IndexController {
     private final ReservationService reservationService;
     private final HttpSession httpSession;
 
-    @GetMapping("/")
+    //@GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {  //Model 객체는 뷰에 데이터를 전달하는 데 사용
         //@LoginUser SessionUser user는 사용자 세션에서 현재 로그인한 사용자의 정보를 주입받음
         model.addAttribute("posts", postsService.findAllDesc());  //postsService.findAllDesc()를 호출하여 게시글 목록을 가져오고, 이를 posts라는 이름으로 모델에 추가
@@ -41,7 +41,7 @@ public class IndexController {
         return "chart";  //"chart"라는 이름의 뷰를 반환
     }
 
-    @GetMapping("/main")
+    @GetMapping({"/main","/"})
     public String main(Model model, @LoginUser SessionUser user) {
 
         SessionUser sessionuser = (SessionUser) httpSession.getAttribute("user");
@@ -76,9 +76,9 @@ public class IndexController {
             } else {
                 model.addAttribute("salon", null);  //Salon이 없는 경우
             }
-            // 디자이너의 리뷰 목록 추가
-            List<ReviewResponseDto> reviews = reviewService.getReviewsByDesignerId(id);
-            model.addAttribute("reviews", reviews);
+        // 디자이너의 리뷰 목록 추가
+        List<ReviewResponseDto> reviews = reviewService.getReviewsByDesignerId(id);
+        model.addAttribute("reviews", reviews);
         } else {
             // 디자이너를 찾을 수 없는 경우
             model.addAttribute("error", "디자이너를 찾을 수 없습니다.");
@@ -108,21 +108,28 @@ public class IndexController {
         model.addAttribute("currentPage", page); // 현재 페이지 번호 추가
         model.addAttribute("totalPages", totalPages); // 총 페이지 수 추가
         model.addAttribute("itemsPerPage", itemsPerPage); // 페이지당 아이템 수 추가
+        // 이전, 다음 페이지 계산
+        int prevPage = (page > 1) ? page - 1 : 1;
+        int nextPage = (page < totalPages) ? page + 1 : totalPages;
+
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
 
         return "designerList"; // 뷰 이름 (HTML 템플릿 파일 이름)
     }
 
-    @GetMapping("/reviewList")
+   @GetMapping("/reviewList")
     public String getReviewList(Model model,
         @RequestParam(defaultValue = "1") int page,
-        @RequestParam(defaultValue = "20") int itemsPerPage) {
-            List<DesignerResponseDto> designerList = designerService.getDesignerList(page, itemsPerPage);
+        @RequestParam(defaultValue = "10") int itemsPerPage) {
+       // 모든 리뷰를 가져오면서 디자이너 정보도 포함
+       List<ReviewResponseDto> reviews = reviewService.getAllReviewsWithDesignerInfo();
+       model.addAttribute("reviews", reviews);
 
-
-            long totalItems = designerService.getTotalCount(); // 전체 디자이너 수
+       long totalItems = reviews.size(); // 전체 리뷰 수
             int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
 
-            model.addAttribute("designers", designerList); // 디자이너 목록 추가
+            model.addAttribute("reviews", reviews); // 디자이너 목록 추가
             model.addAttribute("currentPage", page); // 현재 페이지 번호 추가
             model.addAttribute("totalPages", totalPages); // 총 페이지 수 추가
             model.addAttribute("itemsPerPage", itemsPerPage); // 페이지당 아이템 수 추가
@@ -130,6 +137,8 @@ public class IndexController {
 
         return "reviewList";
     }
+
+
 
 }
 

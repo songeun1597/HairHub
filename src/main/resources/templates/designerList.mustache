@@ -52,9 +52,13 @@
     </div>
         <!-- 페이지네이션 추가 -->
     <div class="pagination">
-        <button id="prevPage" onclick="changePage(currentPage - 1)">이전</button>
+        <!--<button id="prevPage" onclick="changePage(currentPage - 1)">이전</button>
+        <span id="pageInfo">페이지  / {{totalPages}}</span>
+        <button id="nextPage" onclick="changePage(currentPage + 1)">다음</button>-->
+       <a href="/designerList?page={{prevPage}}"><button>이전</button></a>
         <span id="pageInfo">페이지 {{currentPage}} / {{totalPages}}</span>
-        <button id="nextPage" onclick="changePage(currentPage + 1)">다음</button>
+        <a href="/designerList?page={{nextPage}}"><button>다음</button></a>
+
     </div>
 </div>
 

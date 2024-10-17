@@ -10,14 +10,16 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Entity @Getter @Setter @NoArgsConstructor  //@NoArgsConstructor는 Lombok 라이브러리에서 제공하는 어노테이션으로, 기본 생성자(파라미터가 없는 생성자)를 자동으로 생성해 줍니다.
 public class User extends BaseTimeEntity {
     //회원정보
-    @Id
+   @Id
+   /* @GeneratedValue(strategy = GenerationType.IDENTITY)*/
     //유저고유값
-    private String userId;
+    private String userId=UUID.randomUUID().toString();
     //이름
     private String name;
     //이메일

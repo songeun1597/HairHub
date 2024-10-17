@@ -19,7 +19,9 @@ public class ReviewResponseDto {
     private Integer reviewPrice;
     private Integer reviewRating;
     private Integer num;
-//
+
+
+
 //    @Getter
 //    @AllArgsConstructor
 //    public class ReviewResponseDto {
@@ -30,27 +32,33 @@ public class ReviewResponseDto {
 
 
     @Setter
-        private LocalDateTime reservationDate;
+    private LocalDateTime reservationDate;
     @Setter
-        private String userId;
+    private String userId;
     @Setter
-        private String serviceName;
+    private String serviceName;
     @Setter
-        private Integer revisiting;
+    private Integer revisiting;
+    @Setter
+    private String designerNickname;
+    @Setter
+    private String address;
+    @Setter
+    private String salonName;
 
-//        public ReviewResponseDto(Review review) {
-//        }
+    public ReviewResponseDto(Review review) {
+        this.reviewId = review.getReviewId();
+        this.reviewContent = review.getReviewContent();
+        this.reviewPictureId = review.getReviewPictureId() == null ? "" : review.getReviewPictureId();
+        this.reviewPrice = review.getReviewPrice();
+        this.reviewRating = review.getReviewRating();
+        this.num = review.getNum();
+
+        this.designerNickname = review.getReservation().getService().getDesigner().getDesignerNickname(); // 디자이너 이름 추가
+        //this.revisiting = review.getReservation().getRevisitCount() + 1; // revisiting 값을 +1
+    }
 
 
-
-        public ReviewResponseDto(Review review) {
-            this.reviewId = review.getReviewId();
-            this.reviewContent = review.getReviewContent();
-            this.reviewPictureId = review.getReviewPictureId()==null?"":review.getReviewPictureId();
-            this.reviewPrice = review.getReviewPrice();
-            this.reviewRating = review.getReviewRating();
-            this.num = review.getNum();
 
     }
 
-}

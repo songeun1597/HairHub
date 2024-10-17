@@ -18,22 +18,11 @@ private Integer reviewRating;
     private Integer reviewPrice;
     private Integer num;
 
-//
-//@Getter @Setter @Entity
-//    public class Review {
-//    @Id
-//        private String num;
-//        private String reservationDate;
-//        private String userId;
-//        private String reviewContent;
-//        private String serviceName;
-//        private String thumbnail;
-//        private Integer reviewPrice;
-//        private Integer rating;
-//        private Integer revisiting;
 
     // 예약과 리뷰는 일대일 관계로 수정
     @OneToOne
     @JoinColumn(name="reservationId") // Reservation의 PK가 이 컬럼에 저장됨
     private Reservation reservation;
+
+
 }

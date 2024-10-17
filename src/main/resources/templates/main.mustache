@@ -1,25 +1,6 @@
 {{>layout/header}}
 <link rel="stylesheet" href="/css/mainCss.css" />
 
-
-<!--&lt;!&ndash;로그인 기능 영역&ndash;&gt;
-<div class="row">  &lt;!&ndash;한 줄 (row)을 정의&ndash;&gt;
-    <div class="col-md-6">
-        <a href="/posts/save" role="botton" class="btn btn-primary">글 등록</a>
-
-        {{#userNm}}  &lt;!&ndash; userName이라는 변수가 존재하고, 그 값이 참일 때 렌더링되는 블록 &ndash;&gt;
-            Logged in as : <span id="user">{{userNm}}</span>  &lt;!&ndash;HTML의 <span> 태그는 인라인 요소로, 특정 스타일이나 텍스트를 감싸는 데 사용&ndash;&gt;
-            <a href="/logout" class="btn btn-info active" role="button">Logout</a>
-        {{/userNm}}
-        {{^userNm}}  &lt;!&ndash;userName 변수가 존재하지 않거나 그 값이 거짓일 때 렌더링되는 블록&ndash;&gt;
-            <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
-            <a href="/oauth2/authorization/naver" class="btn btn-success active" role="button">Naver Login</a>
-        {{/userNm}}
-
-    </div>
-</div>
-<br>-->
-
 <div class="search">
     <div class="search-container">
         <input type="text" id="search-input"  placeholder="검색어를 입력하세요">
@@ -143,9 +124,7 @@
         </div>
         <div id =ggul-tip-video>
             <video width="740"  controls>
-                <source src="video.mp4" type="video/mp4">
-                <source src="video.ogv" type="video/ogg">
-                <source src="video.webm" type="video/webm">
+                <source src="/images/video/mainvideo.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
