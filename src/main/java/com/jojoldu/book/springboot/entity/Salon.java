@@ -35,6 +35,9 @@ public class Salon {
 @OneToMany(mappedBy = "salon", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 private List<Designer> designers; // Salon에 연결된 디자이너 리스트
 
+    public List<Designer> getDesigners() {
+        return designers;
+    }
 
     public void addDesigner(Designer designer) {
         this.designers.add(designer);

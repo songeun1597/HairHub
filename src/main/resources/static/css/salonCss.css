@@ -116,7 +116,7 @@ font-size: 0.7em; /* 글자 크기 */
     display: flex;
     overflow-x: auto; /* 가로 스크롤 가능 */
     padding: 10px 0; /* 상하 여백 추가 */
-    gap: 10px; /* 사진 간의 간격 */
+    gap: 20px; /* 사진 간의 간격 */
 
 }
 #designers h6 {
@@ -129,8 +129,8 @@ font-size: 0.7em; /* 글자 크기 */
 
 /* 디자이너 사진 스타일 */
 .designer img {
-    width: 150px; /* 사진 너비 조정 */
-    height: 150px; /* 사진 높이 조정 */
+    width: 250px; /* 사진 너비 조정 */
+    height: 250px; /* 사진 높이 조정 */
     object-fit: cover; /* 사진 비율을 유지하면서 자르기 */
     border-radius: 8px; /* 둥근 모서리 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */

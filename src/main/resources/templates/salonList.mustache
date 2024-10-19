@@ -1,0 +1,56 @@
+    {{>layout/header}}
+    <link rel="stylesheet" href="/css/salonListCss.css" />
+
+
+    <div class="container">
+
+
+        <div class="salon-list-outbox">
+            <div class="sidebar">
+                <h1>살롱리스트</h1><br><br>
+
+                <h2>살롱</h2>
+                <ul>
+                    <li><a href="/salonList" class="{{#isActiveSalons}}active{{/isActiveSalons}}">모든 살롱</a></li>
+                    <li><a href="/top-salons" class="{{#isActiveTopSalons}}active{{/isActiveTopSalons}}">Top Rated Salons</a></li>
+                    <li><a href="/new-salons" class="{{#isActiveNewSalons}}active{{/isActiveNewSalons}}">New Salons</a></li>
+                </ul>
+            </div>
+
+            <div class="salon-list">
+                {{#salons}}
+                <a href="/salon/{{salonId}}" class="salon-card">
+                    <div class="salonlist-card">
+                        <div class="image-wrapper">
+                            <div class="salon-image">
+                                <img src="{{salonPictureId}}" alt="{{salonName}}의 사진">
+                            </div>
+                        </div>
+                        <div class="salon-info">
+                            <h2>{{salonName}}</h2>
+                            <p>주소: {{address}}</p>
+                            <p>홈페이지: <a href="{{homepageUrl}}" target="_blank">{{homepageUrl}}</a></p>
+                            <p>영업시간: {{businessHours}}</p>
+                        </div>
+                    </div>
+                </a>
+                {{/salons}}
+
+            </div>
+        </div>
+
+        <!-- 페이지네이션 추가 -->
+        <div class="pagination">
+            <!--<button id="prevPage" onclick="changePage(currentPage - 1)">이전</button>
+            <span id="pageInfo">페이지  / {{totalPages}}</span>
+            <button id="nextPage" onclick="changePage(currentPage + 1)">다음</button>-->
+           <a href="/salonList?page={{prevPage}}"><button>이전</button></a>
+            <span id="pageInfo">페이지 {{currentPage}} / {{totalPages}}</span>
+            <a href="/salonList?page={{nextPage}}"><button>다음</button></a>
+
+        </div>
+    </div>
+
+
+
+    {{>layout/footer}}

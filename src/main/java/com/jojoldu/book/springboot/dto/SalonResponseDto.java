@@ -4,6 +4,8 @@ import com.jojoldu.book.springboot.entity.Salon;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class SalonResponseDto {
@@ -27,6 +29,9 @@ public class SalonResponseDto {
     //전화번호
     private String tel;
 
+    private List<DesignerResponseDto> designers;
+
+
 
     public SalonResponseDto(Salon salon) {
             this.salonId = salon.getSalonId();
@@ -39,6 +44,9 @@ public class SalonResponseDto {
             this.parking = salon.getParking();
             this.tel = salon.getTel();
 
-
+        // 디자이너 목록을 DTO로 변환하여 저장
+        this.designers = salon.getDesigners().stream()
+                .map(DesignerResponseDto::new) // DesignerResponseDto 생성자 호출
+                .collect(Collectors.toList());
     }
 }

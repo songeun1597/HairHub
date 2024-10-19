@@ -58,9 +58,7 @@
     font-size: 1.5em; /* 제목 폰트 크기 */
     color: #333; /* 제목 색상 */
 }
-.sidebar h1 {
-      font-size: 2.4rem;
-}
+
 
 .sidebar ul {
     list-style: none; /* 리스트 스타일 제거 */
