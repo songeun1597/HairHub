@@ -37,6 +37,8 @@ public class    DesignerResponseDto {
     private double rating;
     //직급
     private String position;
+    //재방문
+    private int revisit;
 
     private List<ServiceResponseDto> services;
 
@@ -56,6 +58,7 @@ public class    DesignerResponseDto {
             this.rating = designer.getRating();
             this.position = designer.getPosition();
             this.workTime = designer.getWorkTime();
+            this.revisit = designer.getRevisit();
 
             this.salonName = designer.getSalon().getSalonName();
             this.address = designer.getSalon().getAddress();

@@ -35,6 +35,8 @@ public class Designer {
     private double rating;
     //직급
     private String position;
+    //재방문
+    private int revisit;
 
 
 

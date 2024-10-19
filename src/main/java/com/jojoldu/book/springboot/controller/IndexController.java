@@ -8,6 +8,9 @@ import com.jojoldu.book.springboot.entity.Service;
 import com.jojoldu.book.springboot.service.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -97,8 +100,14 @@ public class IndexController {
 
     public String getDesignerList(Model model,
                                   @RequestParam(defaultValue = "1") int page,
-                                  @RequestParam(defaultValue = "20") int itemsPerPage) {
-        List<DesignerResponseDto> designerList = designerService.getDesignerList(page, itemsPerPage);
+                                  @RequestParam(defaultValue = "20") int itemsPerPage,
+                                  @RequestParam(required = false, defaultValue = "rating") String filter) {
+        model.addAttribute("filter", filter);
+        //List<Designer> designers = designerService.getDesignersByFilter(filter);
+        //model.addAttribute("designers", designers);
+       //System.out.println(designers + "cccccccccccccccccccccccccccccccccccccccccccccccc");
+        Pageable pageable = PageRequest.of(page-1, itemsPerPage, Sort.by(filter).descending());
+        List<DesignerResponseDto> designerList = designerService.getDesignerList(pageable);
         System.out.println(page + itemsPerPage + "18181818181818181818181818181818181818181818181818181818");
 
         long totalItems = designerService.getTotalCount(); // 전체 디자이너 수

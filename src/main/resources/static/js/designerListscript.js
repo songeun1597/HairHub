@@ -1,3 +1,15 @@
+
+
+function filterDesigners() {
+    const filter = document.getElementById("filter").value;
+    window.location.href = `/designerList?filter=${filter}`;
+}
+
+
+
+
+
+/*
 let currentPage = 1; // 현재 페이지
 let itemsPerPage = 20; // 페이지당 디자이너 카드 수
 let totalItems = 0; // 전체 디자이너 수 (서버에서 받아와야 함)
@@ -10,6 +22,11 @@ const paginationInfo = {
     totalRecordCount: 0,
     totalPageCount: 0 // 총 페이지 수 초기화
 };
+function filterDesigners() {
+    const filter = document.getElementById("filter").value;
+    window.location.href = `/designerList?filter=${filter}`;
+}
+
 
 // 디자이너 목록을 서버로부터 가져오는 함수
 function fetchDesigners(page) {
@@ -29,7 +46,6 @@ function fetchDesigners(page) {
             console.error('디자이너 데이터를 가져오는 중 오류 발생:', error);
         });
 }
-
 
 // 페이지네이션 정보를 업데이트하는 함수
 function updatePaginationInfo(currentPage, totalPages) {
@@ -89,3 +105,4 @@ document.getElementById('nextPage').addEventListener('click', function() {
 
 // 초기화
 fetchDesigners(currentPage); // 첫 페이지의 데이터를 가져옴
+*/

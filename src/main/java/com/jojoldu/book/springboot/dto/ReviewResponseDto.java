@@ -45,6 +45,8 @@ public class ReviewResponseDto {
     private String address;
     @Setter
     private String salonName;
+    @Setter
+    private String designerId;
 
     public ReviewResponseDto(Review review) {
         this.reviewId = review.getReviewId();
@@ -55,6 +57,7 @@ public class ReviewResponseDto {
         this.num = review.getNum();
 
         this.designerNickname = review.getReservation().getService().getDesigner().getDesignerNickname(); // 디자이너 이름 추가
+        this.designerId = review.getReservation().getService().getDesigner().getDesignerId();
         //this.revisiting = review.getReservation().getRevisitCount() + 1; // revisiting 값을 +1
     }
 

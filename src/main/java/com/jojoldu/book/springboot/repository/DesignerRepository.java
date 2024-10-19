@@ -14,6 +14,9 @@ public interface DesignerRepository extends JpaRepository<Designer, String> {
     // 페이지네이션을 위한 디자이너 목록 조회 메서드
     @Query(value = "SELECT d FROM Designer d ")
     List<Designer> findAllWithPagination(@Param("offset") int offset, @Param("limit") int limit);
-//
+
+    // 별점 순으로 디자이너를 정렬하여 조회
+    @Query("SELECT d FROM Designer d ORDER BY d.rating DESC")
+    List<Designer> findAllByOrderByRatingDesc();
 //    List<Designer> findAll(int offset, int itemsPerPage);
 }

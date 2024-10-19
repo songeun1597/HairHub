@@ -13,7 +13,10 @@ a {
 a:hover {
     text-decoration: none; /* 호버할 때도 밑줄이 없도록 */
 }
-
+.accent{
+    color: #7EDB3A;
+    font-size: 1.2em;
+}
 
 .container {
     max-width: 1700px;

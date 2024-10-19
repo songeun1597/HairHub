@@ -135,6 +135,7 @@ p {
         display: none; /* 실제 체크박스 숨김 */
     }
 
+
     .gender-selection {
         display: flex; /* 가로로 나열 */
         justify-content: center; /* 수평 가운데 정렬 */
@@ -153,6 +154,7 @@ p {
         background-color: #8feb44ab;
         color: #f5f5f5;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 버튼에 그림자 추가 */
+        font-weight: 700;
 
     }
 
@@ -188,6 +190,7 @@ p {
         background-color: #8feb44ab;
         color: #f5f5f5;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 버튼에 그림자 추가 */
+        font-weight: 700;
     }
 
     .service-box:hover {
@@ -201,6 +204,7 @@ p {
         color: #444444; /* 선택된 박스 텍스트 색상 */
         border: 2px solid; /* 테두리 색상 */
     }
+
 
     #date.flatpickr-input{
         margin:5px  ;
@@ -319,6 +323,18 @@ p {
         border-collapse: collapse;
         padding: 0;
     }
+
+    /* 리뷰 테이블의 이미지 확대 효과 */
+    #review-body img {
+        transition: transform 0.3s ease; /* 부드러운 확대 효과 */
+        width: 50px; /* 기본 이미지 크기 */
+    }
+
+    #review-body img:hover {
+        transform: scale(1.5); /* 호버 시 1.5배 확대 */
+        z-index: 1; /* 이미지를 위로 올리기 위해 z-index 추가 */
+    }
+
 
     .pagination {
         justify-content: center;

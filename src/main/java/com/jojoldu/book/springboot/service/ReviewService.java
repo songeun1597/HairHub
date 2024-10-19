@@ -66,6 +66,7 @@ public class ReviewService {
             reviewDto.setSalonName(review.getReservation().getService().getDesigner().getSalon().getSalonName());
             // 디자이너 닉네임 추가
             reviewDto.setDesignerNickname(review.getReservation().getService().getDesigner().getDesignerNickname());
+            reviewDto.setDesignerId(review.getReservation().getService().getDesigner().getDesignerId());
             return reviewDto;
         }).collect(Collectors.toList());
     }

@@ -68,7 +68,6 @@ a:hover {
 #best-designer-container {
     display: flex;
     height: 500px;
-    width: 1900px;
     align-items: center;
     justify-content: center; /* 자식 요소들을 가로 방향으로 중앙 정렬 */
     overflow: hidden; /* 콘텐츠가 컨테이너를 넘칠 때 숨김 */
@@ -101,15 +100,15 @@ a:hover {
 
 
 .photo-card{
-
     gap: 10px; /* 사진 간의 간격 */
     margin: 0 auto;
+    margin-top: 50px;
 }
 
 .photo-card img {
     margin: 10px 10px 10px 10px;
     width: 300px; /* 사진 너비 조정 */
-    height: 200px; /* 사진 높이 조정 */
+    height: 250px; /* 사진 높이 조정 */
     object-fit: cover; /* 사진 비율을 유지하면서 자르기 */
     border-radius: 18px; /* 둥근 모서리 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
