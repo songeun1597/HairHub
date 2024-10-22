@@ -39,7 +39,6 @@ public class Designer {
     private int revisit;
 
 
-
 @ManyToOne
 @JoinColumn(name = "salonId") // Salon의 salonId와 매핑
 private Salon salon; // 해당 디자이너가 소속된 미용실

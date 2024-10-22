@@ -24,13 +24,11 @@ public class DesignerService {
 
     @Autowired  //Spring이 DesignerRepository의 인스턴스를 자동으로 주입하도록 함. 이를통해 데이터베이스와 상호작용
     private final DesignerRepository designerRepository;
-
     private static final int RECORDS_PER_PAGE = 20; // 한 페이지에 표시할 디자이너 카드 수
     private static final int PAGE_SIZE = 10; // 페이지 리스트에 표시할 페이지 수
 
     public DesignerService(DesignerRepository designerRepository) {
         this.designerRepository = designerRepository;
-        System.out.println(designerRepository+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
     public List<Designer> getDesignersByFilter(String filter) {
@@ -72,6 +70,11 @@ public class DesignerService {
             return responseDtos;
             // 디자이너 정보가 담긴 'responseDtos' 리스트를 반환.
     }
+
+    public List<DesignerResponseDto> findTop8Designers() {
+        return designerRepository.findTop8ByOrderByRatingDesc(); // 평점 순으로 상위 8명 가져오기
+    }
+
 
 
     public PaginationResult getPaginatedDesigners(int currentPageNo, int totalRecordCount) {

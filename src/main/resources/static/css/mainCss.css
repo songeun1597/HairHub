@@ -44,7 +44,6 @@ a:hover {
     font-size: 16px;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
-
 }
 
 #search-button:hover {
@@ -62,7 +61,6 @@ a:hover {
     background-repeat: no-repeat;
     display: flex; /* 플렉스 레이아웃을 사용하여 자식 요소를 중앙 정렬 */
     flex-direction: column;
-
 }
 
 #best-designer-container {
@@ -88,7 +86,7 @@ a:hover {
     overflow: hidden;
 }
 .best-designer-title {
-    top: 5px; /* 원하는 위치로 조정 */
+    top: 0px; /* 원하는 위치로 조정 */
     margin-bottom: 50px;
     font-size: 2rem; /* 폰트 크기 조정 */
     font-weight: 600;
@@ -103,16 +101,26 @@ a:hover {
     gap: 10px; /* 사진 간의 간격 */
     margin: 0 auto;
     margin-top: 50px;
+    margin-bottom: 35px;
 }
 
 .photo-card img {
     margin: 10px 10px 10px 10px;
     width: 300px; /* 사진 너비 조정 */
     height: 250px; /* 사진 높이 조정 */
-    object-fit: cover; /* 사진 비율을 유지하면서 자르기 */
+    max-height: 100%;
+    /* object-fit: cover;  사진 비율을 유지하면서 자르기 */
     border-radius: 18px; /* 둥근 모서리 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
     display: flex;
+    object-position: top; /* 상단을 기준으로 이미지 맞춤 */
+    transition: transform 0.3s ease-in-out; /* 호버 애니메이션 */
+}
+
+.photo-card img:hover{
+    transform: scale(1.1); /* 살짝 확대 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* 약간의 그림자 효과 */
+    z-index: 1; /* 이미지가 위로 올라오게 설정 */
 }
 
 .scroll-button {
@@ -227,7 +235,6 @@ video {
 }
 
 
-
 h6{
     text-align: center;
     padding-top: 9px;
@@ -274,7 +281,7 @@ p{
     position: absolute;
 }
 
-#phto-cards{
+#photo-cards{
     margin-top: 100px;
     display: flex;
 }

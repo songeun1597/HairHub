@@ -45,16 +45,30 @@ public class IndexController {
         return "chart";  //"chart"라는 이름의 뷰를 반환
     }
 
+
+
+   /* @GetMapping("/best-designers")
+    public String getBestDesigners(Model model, @PathVariable String id) {
+        // 8개의 디자이너 정보만 가져오기 (예시로 상위 8명 가져오기)
+        List<Designer> bestDesigners = designerService.findTop8Designers(id);
+        model.addAttribute("bestDesigners", bestDesigners);
+        System.out.println(bestDesigners+"123123");
+        return "main";
+    }*/
+
+
     @GetMapping({"/main","/"})
     public String main(Model model, @LoginUser SessionUser user) {
 
         SessionUser sessionuser = (SessionUser) httpSession.getAttribute("user");
-        System.out.println(user + "11111111111111111111111111111111111111111111111111111111111111");
-
         if (user != null) {
             model.addAttribute("userNm", user.getName());
-
         }
+        // 8개의 디자이너 정보만 가져오기 (예시로 상위 8명 가져오기)
+        List<DesignerResponseDto> bestDesigners = designerService.findTop8Designers();
+        model.addAttribute("bestDesigners", bestDesigners);
+        System.out.println(bestDesigners+"123123");
+
         return "main";  //"main"라는 이름의 뷰를 반환
     }
 
@@ -63,6 +77,19 @@ public class IndexController {
     public String desiner() {
 
         return "desiner";
+    }
+
+
+    @GetMapping("/salon/{id}")
+    public String salon(Model model, @PathVariable String id) {
+//        model.addAttribute("salon", salonService.findById(id));
+//        return "salon";
+
+        SalonResponseDto salonDto = salonService.findById(id);
+        model.addAttribute("salon", salonDto);
+        model.addAttribute("designers", salonDto.getDesigners()); // 디자이너 목록 추가
+        System.out.println(salonDto+"디자이너야 나오너라");
+        return "salon";
     }
 
     @GetMapping("/designer/{id}")
@@ -80,9 +107,9 @@ public class IndexController {
             } else {
                 model.addAttribute("salon", null);  //Salon이 없는 경우
             }
-        // 디자이너의 리뷰 목록 추가
-        List<ReviewResponseDto> reviews = reviewService.getReviewsByDesignerId(id);
-        model.addAttribute("reviews", reviews);
+            // 디자이너의 리뷰 목록 추가
+            List<ReviewResponseDto> reviews = reviewService.getReviewsByDesignerId(id);
+            model.addAttribute("reviews", reviews);
         } else {
             // 디자이너를 찾을 수 없는 경우
             model.addAttribute("error", "디자이너를 찾을 수 없습니다.");
@@ -90,33 +117,17 @@ public class IndexController {
         return "designer";
     }
 
-    @GetMapping("/salon/{id}")
-    public String salon(Model model, @PathVariable String id) {
-//        model.addAttribute("salon", salonService.findById(id));
-//        return "salon";
-
-        SalonResponseDto salonDto = salonService.findById(id);
-        model.addAttribute("salon", salonDto);
-        model.addAttribute("designers", salonDto.getDesigners()); // 디자이너 목록 추가
-        System.out.println(salonDto+"디자이너야 나오너라");
-        return "salon";
-    }
-
     @GetMapping("/designerList")
 
     public String getDesignerList(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "20") int itemsPerPage,
                                   @RequestParam(required = false, defaultValue = "rating") String filter) {
         model.addAttribute("filter", filter);
-        //List<Designer> designers = designerService.getDesignersByFilter(filter);
-        //model.addAttribute("designers", designers);
-       //System.out.println(designers + "cccccccccccccccccccccccccccccccccccccccccccccccc");
+
         Pageable pageable = PageRequest.of(page-1, itemsPerPage, Sort.by(filter).descending());
         List<DesignerResponseDto> designerList = designerService.getDesignerList(pageable);
-        System.out.println(page + itemsPerPage + "18181818181818181818181818181818181818181818181818181818");
 
         long totalItems = designerService.getTotalCount(); // 전체 디자이너 수
         int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
-        System.out.println(totalPages + "181818181818181818181818181818181818181818181818181818187777777777777777");
         model.addAttribute("designers", designerList); // 디자이너 목록 추가
         model.addAttribute("currentPage", page); // 현재 페이지 번호 추가
         model.addAttribute("totalPages", totalPages); // 총 페이지 수 추가
@@ -130,13 +141,41 @@ public class IndexController {
 
         return "designerList"; // 뷰 이름 (HTML 템플릿 파일 이름)
     }
+
+    @GetMapping("/reviewList")
+    public String getReviewList(Model model,
+                                @RequestParam(defaultValue = "1") int page,
+                                @RequestParam(defaultValue = "10") int itemsPerPage) {
+        Pageable pageable = PageRequest.of(page-1, itemsPerPage);  // Pageable 객체 생성
+        // 모든 리뷰를 가져오면서 디자이너 정보도 포함
+        List<ReviewResponseDto> reviews = reviewService.getAllReviewsWithDesignerInfo(pageable);  // 페이징된 리뷰 목록 가져오기
+        System.out.println(reviews + "18181818181818181818181818181818181818181818181818181818777777777777");
+        long totalItems = reviewService.getTotalCount(); // 전체 리뷰 수
+        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
+        model.addAttribute("reviews", reviews); // 리뷰 목록 추가
+        model.addAttribute("currentPage", page); // 현재 페이지 번호 추가
+        model.addAttribute("totalPages", totalPages); // 총 페이지 수 추가
+        model.addAttribute("itemsPerPage", itemsPerPage); // 페이지당 아이템 수 추가
+
+        // 이전, 다음 페이지 계산
+        int prevPage = (page > 1) ? page - 1 : 1;
+        int nextPage = (page < totalPages) ? page + 1 : totalPages;
+
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+
+        return "reviewList"; // 뷰 이름 (HTML 템플릿 파일 이름)
+
+    }
+
+
+
     @GetMapping("/salonList")
     public String getSalonList(Model model,
                                @RequestParam(defaultValue = "1") int page,
                                @RequestParam(defaultValue = "18") int itemsPerPage) {
         Pageable pageable = PageRequest.of(page-1, itemsPerPage);
         List<SalonResponseDto> salonList = salonService.getSalonList(pageable);
-        System.out.println(salonList+"salonsalonsalonsalonsalonsalonsalon");
 
         long totalItems = salonService.getTotalCount(); // 전체 디자이너 수
         int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
@@ -154,27 +193,6 @@ public class IndexController {
 
         return "salonList"; // 뷰 이름 (HTML 템플릿 파일 이름)
     }
-
-
-
-   @GetMapping("/reviewList")
-    public String getReviewList(Model model,
-        @RequestParam(defaultValue = "1") int page,
-        @RequestParam(defaultValue = "10") int itemsPerPage) {
-       // 모든 리뷰를 가져오면서 디자이너 정보도 포함
-       List<ReviewResponseDto> reviews = reviewService.getAllReviewsWithDesignerInfo();
-       model.addAttribute("reviews", reviews);
-
-       long totalItems = reviews.size(); // 전체 리뷰 수
-            int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
-
-            model.addAttribute("reviews", reviews); // 디자이너 목록 추가
-            model.addAttribute("currentPage", page); // 현재 페이지 번호 추가
-            model.addAttribute("totalPages", totalPages); // 총 페이지 수 추가
-            model.addAttribute("itemsPerPage", itemsPerPage); // 페이지당 아이템 수 추가
-        return "reviewList";
-    }
-
 
 
 

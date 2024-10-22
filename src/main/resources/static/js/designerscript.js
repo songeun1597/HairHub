@@ -1,12 +1,13 @@
-
 // 영업시간 설정 (예: 10시부터 20시까지)
 const workStartHour = 10;
 const workEndHour = 20;
 const timeSlotsContainer = document.getElementById("timeSlots");
 
 // 예약된 시간을 서버로부터 받아왔다고 가정 (예: 13:00, 15:30은 예약된 상태)
-const bookedTimes = {"2024-10-11": ["13:00", "15:30"],
-    "2024-10-12": ["12:00", "16:00"],"2024-10-15": ["13:00", "15:30"],"2024-10-16": ["12:00", "16:00"],}
+const bookedTimes = {
+    "2024-10-11": ["13:00", "15:30"],
+    "2024-10-12": ["12:00", "16:00"], "2024-10-15": ["13:00", "15:30"], "2024-10-16": ["12:00", "16:00"],
+}
 
 function isBookedTime(date, timeSlot) {
     const bookedForDate = bookedTimes[date] || []; // 해당 날짜의 예약된 시간 목록을 가져옴
@@ -70,6 +71,7 @@ function generateTimeSlots() {
         }
     }
 }
+
 // 시간 슬롯 생성
 generateTimeSlots();
 
@@ -79,12 +81,12 @@ flatpickr("#date", {
     inline: true, // 페이지에 달력이 항상 표시되도록 설정
     defaultDate: "today", // 오늘 날짜를 기본으로 설정
     minDate: "today", // 오늘 이전 날짜는 선택할 수 없게 설정
-    onChange: function() {
+    onChange: function () {
 // 날짜가 변경될 때마다 시간 슬롯을 재생성
         timeSlotsContainer.innerHTML = ""; // 기존 슬롯 제거
         generateTimeSlots(); // 새로운 슬롯 생성
     },
-    onReady: function() {
+    onReady: function () {
 // Flatpickr가 준비되었을 때 시간 슬롯을 생성
         timeSlotsContainer.innerHTML = ""; // 기존 슬롯 제거
         generateTimeSlots(); // 시간 슬롯 처음 한번만 생성
@@ -100,13 +102,29 @@ flatpickr("#time", {
     time_24hr: true, // 24시간 형식 사용
     minuteIncrement: 30, // 30분 간격으로 설정
     inline: true, // 시간 선택을 버튼 형태로 보이게 설정
-    onReady: function(selectedDates, dateStr, instance) {
+    onReady: function (selectedDates, dateStr, instance) {
         instance.set('minTime', getMinTime()); // 최소 시간 설정
 
     },
-    onOpen: function(selectedDates, dateStr, instance) {
+    onOpen: function (selectedDates, dateStr, instance) {
         instance.set('minTime', getMinTime()); // 달력이 열릴 때 최소 시간 다시 설정
 
     }
 });
 
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    // ISO 형식의 문자열로 변환 후 필요한 부분만 가져오기
+    const isoString = date.toISOString().slice(0, 10); // YYYY-MM-DD 형태로 가져옴
+    return isoString; // 하이픈 없는 날짜 리턴
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const reviewRows = document.querySelectorAll('#review-body tr');
+    reviewRows.forEach(row => {
+        const dateCell = row.querySelector('td:nth-child(2)');
+        const dateValue = dateCell.textContent; // 기존 날짜 값 가져오기
+        dateCell.textContent = formatDate(dateValue); // 포맷팅된 날짜로 변경
+    });
+});

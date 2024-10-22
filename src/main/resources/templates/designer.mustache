@@ -105,7 +105,6 @@
             </ul>
             <fieldset>
                 <div class="fieldset-group flex-container">
-
                     <table id="review-table" class="table">
                         <thead>
                         <tr>
@@ -124,7 +123,7 @@
                         {{#reviews}}
                             <tr>
                                 <td>{{num}}</td>
-                                <td>{{reservationDate}}</td>
+                                <td class="reservation-date">{{reservationDate}}</td>
                                 <td>{{userId}}</td>
                                 <td>{{reviewContent}}</td>
                                 <td>{{serviceName}}</td>
@@ -136,28 +135,6 @@
                         {{/reviews}}
                         </tbody>
                     </table>
-                </div>
-
-                <div class="fieldset-group">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li class="page-item disabled">
-                                <span class="page-link">이전</span>
-                            </li>
-                            <li class="page-item active">
-                                <span class="page-link">1</span>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">다음</a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
             </fieldset>
         </div>

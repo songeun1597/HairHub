@@ -4,7 +4,7 @@
 <div class="reviewList-container">
     <!-- 필터 선택 바 추가 -->
     <div class="filter-bar">
-        <select id="filter" name="filter" onchange="filterDesigners()">
+        <select id="filter" name="filter" onchange="filterReviews()">
             <option value="rating">별점순</option>
             <option value="revisit">재방문순</option>
             <option value="recent">최신순</option>
@@ -36,7 +36,7 @@
                     <h2>현HairExpert 후기 [blingbling hair]
                         <a href="/designer/designer11" class="reservation-link">예약 바로가기</a>
                     </h2><hr>
-                    <h5 class="rating">[허그펌] 별점: <span class="star-rating">5</span></h5><br>
+                    <h5 class="rating">[허그펌]&nbsp;&nbsp; 별점: <span class="star-rating">5</span></h5><br>
                     <h6>역시 이구역 짱은 현민 디자이너! 매일 손질하기 어려운 머리가 고민이었는데
                         시술 후에 요즘 살맛납니다!! 상담도 친절하시고, 스피드하게 시술 받을 수 있어서 좋았어요</h6><br>
                     <div class="review-footer">
@@ -57,11 +57,11 @@
                         <h2>{{designerNickname}} 후기 [{{salonName}}]
                             <a href="/designer/{{designerId}}" class="reservation-link">예약 바로가기</a>
                         </h2><hr>
-                        <h5 class="rating">[{{serviceName}}]별점: <span class="star-rating">{{reviewRating}}</span></h5>
+                        <h5 class="rating">[{{serviceName}}]&nbsp;&nbsp;별점: <span class="star-rating">{{reviewRating}}</span></h5>
                         <h6> {{reviewContent}}</h6><br>
                         <div class="review-footer">
                             <p>[재방문수: {{revisiting}}]</p>
-                            <p>&nbsp;&nbsp;{{address}}]</p>
+                            <p>&nbsp;&nbsp;{{address}}</p>
                         <p class="reservation-date">예약 날짜: 2024-08-07</p>
                         </div>
                     </div>
@@ -72,9 +72,10 @@
 
     <!-- 페이지네이션 추가 -->
     <div class="pagination">
-        <button id="prevPage" onclick="changePage(currentPage - 1)">이전</button>
+        <a href="/reviewList?page={{prevPage}}&filter={{filter}}"><button>이전</button></a>
         <span id="pageInfo">페이지 {{currentPage}} / {{totalPages}}</span>
-        <button id="nextPage" onclick="changePage(currentPage + 1)">다음</button>
+        <a href="/reviewList?page={{nextPage}}&filter={{filter}}"><button>다음</button></a>
+
     </div>
 </div>
 

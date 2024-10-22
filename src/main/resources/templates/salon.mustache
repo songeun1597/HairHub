@@ -28,8 +28,7 @@
             <h6> 주소 : {{salon.address}}</h6>
             <h6> 영업시간 : {{salon.businessHours}}</h6>
               <p>  주차여부 : {{salon.parking}}<br>
-                  홈페이지 주소: www.temdhairroom.co.kr<br>
-                {{!홈페이지주소 : <a href ={{salon.homepageUrl}}
+                  홈페이지주소 : <a href ="{{salon.homepageUrl}}">{{salon.homepageUrl}}</a><br>
                 전화번호 : {{salon.tel}}<br>
               </p>
             </div>
@@ -39,7 +38,7 @@
         <div id="designers">
             {{#designers}}
                 <div>
-                    <a href="https://localhost:8081/designer/{{designerId}}" target="_blank" class="designer">
+                    <a href="/designer/{{designerId}}" target="_blank" class="designer">
                         <img src="{{designerPictureId}}" alt="{{designerNickname}}"> <!-- 디자이너 사진 URL 사용 -->
                         <h6>{{designerNickname}}</h6> <!-- 디자이너 이름 -->
                     </a>

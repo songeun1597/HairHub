@@ -8,8 +8,8 @@ import com.jojoldu.book.springboot.entity.Review;
 import com.jojoldu.book.springboot.repository.DesignerRepository;
 import com.jojoldu.book.springboot.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,12 +25,15 @@ public class ReviewService {
     @Autowired
     private DesignerRepository designerRepository;
 
+    private static final int RECORDS_PER_PAGE = 20; // 한 페이지에 표시할 디자이너 카드 수
+    private static final int PAGE_SIZE = 10; // 페이지 리스트에 표시할 페이지 수
 
     // 리뷰 ID로 리뷰 조회
     public ReviewResponseDto findById(String id) {
         Optional<Review> byId = reviewRepository.findById(id);
         return new ReviewResponseDto(byId.orElseThrow(() -> new IllegalArgumentException("리뷰를 찾을 수 없습니다.")));
     }
+
     public List<ReviewResponseDto> getReviewsByDesignerId(String id) {
         Optional<Designer> byId = designerRepository.findById(id);
         System.err.println("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
@@ -54,8 +57,8 @@ public class ReviewService {
     }
 
     // 모든 리뷰 조회 (디자이너 정보 포함)
-    public List<ReviewResponseDto> getAllReviewsWithDesignerInfo() {
-        List<Review> reviews = reviewRepository.findAll();  // 모든 리뷰 조회
+    public List<ReviewResponseDto> getAllReviewsWithDesignerInfo(Pageable pageable) {
+        Page<Review> reviews = reviewRepository.findAll(pageable);  // 모든 리뷰 조회
         return reviews.stream().map(review -> {
             ReviewResponseDto reviewDto = new ReviewResponseDto(review);
             reviewDto.setReservationDate(review.getReservation().getReservationTime());
@@ -76,20 +79,10 @@ public class ReviewService {
     }
     // 디자이너 ID로 리뷰 목록 조회
     //public List<Review> getReviewsByDesignerId(String designerId) {
-       // return reviewRepository.findReviewsByDesignerId(designerId);
+    // return reviewRepository.findReviewsByDesignerId(designerId);
     //}
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

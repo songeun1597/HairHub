@@ -76,8 +76,8 @@ p {
 #individual-designer {
     width: 60%; /* 중앙에 더 크게 위치시키기 위한 너비 조정 */
     margin-right: 5%; /* right-sidebar와의 간격 확보 */
-
 }
+
 #photo-container {  /* 전체 콘텐츠를 감싸는 div */
     width: 650px;  /* 너비 */
     height: 650px;
@@ -117,15 +117,15 @@ p {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
     font-family: Arial, sans-serif; /* 폰트 설정 */
-
 }
-#reservation-innerbox {
-    border: 1px solid #8FEB44;
-    border-radius: 5px; /* 모서리 둥글게 */
-    background-color: white; /* 배경색 */
-    padding: 15px;
-    margin-top: 10px;
 
+#reservation-innerbox {
+border: 1px solid #8FEB44;
+border-radius: 5px; /* 모서리 둥글게 */
+background-color: white; /* 배경색 */
+padding: 15px;
+margin-top: 10px;
+}
     label {
         display: block; /* 라벨을 블록 요소로 만들어 줄바꿈 */
         margin: 10px 0; /* 라벨 간 간격 */
@@ -155,7 +155,6 @@ p {
         color: #f5f5f5;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 버튼에 그림자 추가 */
         font-weight: 700;
-
     }
 
     .gender-box:hover {
@@ -205,10 +204,9 @@ p {
         border: 2px solid; /* 테두리 색상 */
     }
 
-
-    #date.flatpickr-input{
-        margin:5px  ;
-    }
+#date.flatpickr-input{
+    margin:10px  ;
+}
 
     /* 시간 슬롯 버튼 스타일 */
     .time-slots {
@@ -284,45 +282,38 @@ p {
         border-color:  #8FEB44;
     }
 
-    #container {
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* 가운데 정렬 (수평) */
-        justify-content: center; /* 가운데 정렬 (수직) */
-        text-align: center; /* 텍스트 가운데 정렬 */
-    }
+#container {
+    display: flex; /* Flexbox를 사용하여 내부 요소를 정렬 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center; /* 수평 가운데 정렬 */
+    margin-top: 20px; /* 위쪽 여백 */
+    padding: 20px; /* 내부 여백 */
+    background-color: white; /* 배경색 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    width: 90%; /* 컨테이너 너비 */
+    margin: 0 auto;
+}
 
-    .review-container {
-        margin: 20px 0;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 80% !important;
-        max-width: 1500px;
-    }
+.review-container {
+    width: 100%; /* 리뷰 컨테이너 너비 100% */
+}
 
-    .table-container {
-        margin-top: 20px;
-        padding: 20px;
-        background-color: #ffffff; /* 하얀색 배경 */
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+fieldset {
+    border: none; /* 필드셋의 테두리 제거 */
+    width: 100%; /* 필드셋 너비 100% */
+    padding: 0; /* 내부 여백 제거 */
+}
 
-    .table th, .table td {
-        text-align: center;
-    }
+.table {
+    width: 100%; /* 테이블 너비 100% */
+    margin-top: 20px; /* 위쪽 여백 */
+}
+.table thead th {
+    background-color: #8FEB44 ;
+    color: white ;
+}
 
-    .table thead th {
-        background-color: #8FEB44 ;
-        color: white ;
-    }
 
-    .table {
-        width: 85%;
-        border-collapse: collapse;
-        padding: 0;
-    }
 
     /* 리뷰 테이블의 이미지 확대 효과 */
     #review-body img {
@@ -331,8 +322,9 @@ p {
     }
 
     #review-body img:hover {
-        transform: scale(1.5); /* 호버 시 1.5배 확대 */
+        transform: scale(3.5); /* 호버 시 1.5배 확대 */
         z-index: 1; /* 이미지를 위로 올리기 위해 z-index 추가 */
+        transform-origin: bottom left; /* 왼쪽 하단을 기준으로 확대 */
     }
 
 
@@ -371,7 +363,7 @@ p {
     }
 
 
-}
+
 
 
 

@@ -1,3 +1,5 @@
+/*
+
 let currentPage = 1;
 const reviewsPerPage = 10;
 
@@ -15,4 +17,10 @@ function updateReviewList() {
     // 서버에서 받은 리뷰 데이터를 slice로 자르고 페이지에 반영
     const paginatedReviews = reviews.slice(startIndex, endIndex);
     renderReviews(paginatedReviews);
+}
+
+*/
+function filterReviews() {
+    const filter = document.getElementById("filter").value;
+    window.location.href = `/reviewList?filter=${filter}`;
 }

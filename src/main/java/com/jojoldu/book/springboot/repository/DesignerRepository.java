@@ -1,5 +1,6 @@
 package com.jojoldu.book.springboot.repository;
 
+import com.jojoldu.book.springboot.dto.DesignerResponseDto;
 import com.jojoldu.book.springboot.entity.Designer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,10 @@ public interface DesignerRepository extends JpaRepository<Designer, String> {
     @Query("SELECT d FROM Designer d ORDER BY d.rating DESC")
     List<Designer> findAllByOrderByRatingDesc();
 //    List<Designer> findAll(int offset, int itemsPerPage);
+
+    // 평점 기준으로 상위 8명의 디자이너를 가져오는 쿼리
+    @Query("SELECT d FROM Designer d ORDER BY d.rating DESC")
+    List<DesignerResponseDto> findTop8ByOrderByRatingDesc(); // 평점 순으로 상위 8명의 디자이너 가져오기
+
+
 }
