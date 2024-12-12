@@ -12,11 +12,13 @@ import java.util.UUID;
 @Entity
 public class Reservation {
     @Id
-    private String reservationId;
-    private LocalDateTime reservationTime;
+    private String reservationId = UUID.randomUUID().toString();
+    private LocalDateTime timeSlots;
     private String remittance;
     private String memo;
     private int revisitCount;
+
+    private String gender;
 
     @ManyToOne
     @JoinColumn(name="userId"    )

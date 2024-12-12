@@ -3,22 +3,25 @@ package com.jojoldu.book.springboot.controller;
 import com.jojoldu.book.springboot.config.auth.LoginUser;
 import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
 import com.jojoldu.book.springboot.dto.*;
-import com.jojoldu.book.springboot.entity.Designer;
-import com.jojoldu.book.springboot.entity.Salon;
-import com.jojoldu.book.springboot.entity.Service;
+import com.jojoldu.book.springboot.entity.*;
 import com.jojoldu.book.springboot.service.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class IndexController {
     private final ReviewService reviewService;
     private final ReservationService reservationService;
     private final HttpSession httpSession;
+    private final UserService userService;
 
     //@GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {  //Model 객체는 뷰에 데이터를 전달하는 데 사용
@@ -45,17 +49,11 @@ public class IndexController {
         return "chart";  //"chart"라는 이름의 뷰를 반환
     }
 
+    @GetMapping({"/map"})
+    public String map(){
 
-
-   /* @GetMapping("/best-designers")
-    public String getBestDesigners(Model model, @PathVariable String id) {
-        // 8개의 디자이너 정보만 가져오기 (예시로 상위 8명 가져오기)
-        List<Designer> bestDesigners = designerService.findTop8Designers(id);
-        model.addAttribute("bestDesigners", bestDesigners);
-        System.out.println(bestDesigners+"123123");
-        return "main";
-    }*/
-
+        return "map";
+    }
 
     @GetMapping({"/main","/"})
     public String main(Model model, @LoginUser SessionUser user) {
@@ -67,10 +65,21 @@ public class IndexController {
         // 8개의 디자이너 정보만 가져오기 (예시로 상위 8명 가져오기)
         List<DesignerResponseDto> bestDesigners = designerService.findTop8Designers();
         model.addAttribute("bestDesigners", bestDesigners);
-        System.out.println(bestDesigners+"123123");
+        System.out.println(bestDesigners + "123123");
 
-        return "main";  //"main"라는 이름의 뷰를 반환
-    }
+/*
+        String retUrl = "세션에서 값 받기";
+        if (!"".equals(retUrl)) {
+            return "redirect:" + retUrl;
+        } else {
+
+ */
+            return "main";  //"main"라는 이름의 뷰를 반환
+        }
+
+
+
+
 
     //예쁜 화면 출력을 위한 디자이너 이미지페이지
     @GetMapping("/desiner")
@@ -84,7 +93,6 @@ public class IndexController {
     public String salon(Model model, @PathVariable String id) {
 //        model.addAttribute("salon", salonService.findById(id));
 //        return "salon";
-
         SalonResponseDto salonDto = salonService.findById(id);
         model.addAttribute("salon", salonDto);
         model.addAttribute("designers", salonDto.getDesigners()); // 디자이너 목록 추가
@@ -96,7 +104,6 @@ public class IndexController {
     public String designer(Model model, @PathVariable String id) {
         DesignerResponseDto designerDto = designerService.findById(id);
 
-        //ReservationResponseDto reservationDto = reservationService.findById(id);
         if (designerDto != null) {
             // 디자이너 정보를 모델에 추가
             model.addAttribute("designer", designerDto);
@@ -107,15 +114,48 @@ public class IndexController {
             } else {
                 model.addAttribute("salon", null);  //Salon이 없는 경우
             }
+
             // 디자이너의 리뷰 목록 추가
             List<ReviewResponseDto> reviews = reviewService.getReviewsByDesignerId(id);
             model.addAttribute("reviews", reviews);
+
+
         } else {
             // 디자이너를 찾을 수 없는 경우
             model.addAttribute("error", "디자이너를 찾을 수 없습니다.");
         }
         return "designer";
     }
+
+    @PostMapping("designer/{id}")
+    public String createReservation(@LoginUser SessionUser user,
+                                    @PathVariable String id,
+                                    //@RequestParam String gender,
+                                    //@RequestParam List<String> serviceIds,
+                                   // @RequestParam String serviceIds,
+                                    //@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+                                   // @RequestParam String timeSlots, // 시간 선택을 위한 파라미터 추가
+                                    ReservationResponseDto reservationResponseDto,
+                                    Model model) {
+        System.out.println(user.getUserId()+user.getName()+user.getEmail()+"11111111111111111111111111111111555555555");
+        //DesignerResponseDto designerDto = designerService.findById(id);
+        if(user == null || user.getUserId() == null) {
+
+            throw new RuntimeException("사용자를 알 수 없습니다.");
+        }else{
+            reservationResponseDto.setUserId(user.getUserId());
+
+        }
+
+            // 예약 저장
+            reservationService.save(reservationResponseDto);
+
+        // 예약 완료 후 필요한 페이지로 리다이렉트
+        //model.addAttribute("message", "예약이 완료되었습니다.");
+        return "redirect:/designer/"+id;
+        //return "redirect:/예약확인"; // 예약 확인 페이지로 리다이렉트
+    }
+
 
     @GetMapping("/designerList")
 
@@ -149,7 +189,7 @@ public class IndexController {
         Pageable pageable = PageRequest.of(page-1, itemsPerPage);  // Pageable 객체 생성
         // 모든 리뷰를 가져오면서 디자이너 정보도 포함
         List<ReviewResponseDto> reviews = reviewService.getAllReviewsWithDesignerInfo(pageable);  // 페이징된 리뷰 목록 가져오기
-        System.out.println(reviews + "18181818181818181818181818181818181818181818181818181818777777777777");
+
         long totalItems = reviewService.getTotalCount(); // 전체 리뷰 수
         int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
         model.addAttribute("reviews", reviews); // 리뷰 목록 추가

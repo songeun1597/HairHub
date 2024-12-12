@@ -45,29 +45,39 @@ function isPastTime(slotTime) {
 function generateTimeSlots() {
     const selectedDate = document.querySelector("#date").value;
 
+
+
     for (let hour = workStartHour; hour < workEndHour; hour++) {
         for (let minute of [0, 30]) {
             const timeSlot = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+
 
 // 버튼 생성
             const button = document.createElement("button");
             button.textContent = timeSlot;
             button.classList.add("time-slot-button");
+            button.type = "button";
 
 // 예약된 시간이거나 과거 시간이면 비활성화
             if (isBookedTime(selectedDate, timeSlot) || isPastTime(timeSlot)) {
                 button.disabled = true;
                 button.classList.add("disabled"); // 스타일 추가
             }
-
+            //let ispast = (isBookedTime(selectedDate, timeSlot) || isPastTime(timeSlot));
+            //let timeselect = `<input type="radio" name="timeSlots" value="${timeSlot}" ${ispast?'disabled':''} id="timeSlots${timeSlot}">
+        //<label for="timeSlots${timeSlot}" class="gender-box">${timeSlot}</label>`;
 // 클릭 이벤트
             button.addEventListener("click", () => {
 // 사용자가 선택한 시간을 처리
-                console.log(`예약 시간 선택: ${timeSlot}`);
+               console.log(`예약 시간 선택: ${timeSlot}`);
+               let timeinput = document.querySelector('#timeSelect');
+               timeinput.value = timeSlot;
+
             });
 
 // 컨테이너에 버튼 추가
             timeSlotsContainer.appendChild(button);
+            //timeSlotsContainer.insertAdjacentHTML("beforeend", timeselect);
         }
     }
 }
@@ -128,3 +138,4 @@ document.addEventListener("DOMContentLoaded", function() {
         dateCell.textContent = formatDate(dateValue); // 포맷팅된 날짜로 변경
     });
 });
+

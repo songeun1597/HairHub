@@ -36,7 +36,6 @@ public class ReviewService {
 
     public List<ReviewResponseDto> getReviewsByDesignerId(String id) {
         Optional<Designer> byId = designerRepository.findById(id);
-        System.err.println("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
         List<ReviewResponseDto> reviewList = new ArrayList<>();
         List<com.jojoldu.book.springboot.entity.Service> services = byId.get().getServices();
         for(com.jojoldu.book.springboot.entity.Service service: services){
@@ -46,7 +45,7 @@ public class ReviewService {
                 System.out.println("###############################"+review.getReviewContent());
 //reviewList.add();
                 ReviewResponseDto reviewDto = new ReviewResponseDto(review);
-                reviewDto.setReservationDate(reservation.getReservationTime());
+                reviewDto.setReservationDate(reservation.getTimeSlots());
                 reviewDto.setUserId(reservation.getUserId());
                 reviewDto.setServiceName(service.getServiceName());
                 reviewDto.setRevisiting(reservation.getRevisitCount());
@@ -61,7 +60,7 @@ public class ReviewService {
         Page<Review> reviews = reviewRepository.findAll(pageable);  // 모든 리뷰 조회
         return reviews.stream().map(review -> {
             ReviewResponseDto reviewDto = new ReviewResponseDto(review);
-            reviewDto.setReservationDate(review.getReservation().getReservationTime());
+            reviewDto.setReservationDate(review.getReservation().getTimeSlots());
             reviewDto.setUserId(review.getReservation().getUserId());
             reviewDto.setServiceName(review.getReservation().getService().getServiceName());
             reviewDto.setRevisiting(review.getReservation().getRevisitCount());

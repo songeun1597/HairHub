@@ -131,7 +131,7 @@ margin-top: 10px;
         margin: 10px 0; /* 라벨 간 간격 */
     }
 
-    input[name="service"],input[name="gender"]{
+    input[name="serviceId"],input[name="gender"]{
         display: none; /* 실제 체크박스 숨김 */
     }
 

@@ -22,4 +22,9 @@ public class UserService {
 
         return new UserResponseDto(byId.orElseThrow(()->new IllegalArgumentException("사용자를 찾을 수 없습니다")));
     }
+
+    public User findByUserId(String id) {
+        return userRepository.findById(id).get();
+
+    }
 }

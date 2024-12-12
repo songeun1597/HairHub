@@ -56,7 +56,7 @@
     <!-- 예약 양식 추가 -->
     <div id="right-sidebar" class="reservation-container">
         <h4>예약하기</h4>
-        <form action="/예약" method="POST">
+        <form action="/designer/{{designer.designerId}}" method="POST">
             <div id="reservation-innerbox">
             <label><h5>성별 선택</h5></label>
             <div class="gender-selection">
@@ -68,28 +68,28 @@
     <hr>
             <label><h5>시술 선택</h5></label>
             <div class="service-selection">
-                <input type="checkbox" name="service" value="cut" id="cut">
+                <input type="checkbox" name="serviceId" value="S011" id="cut">
                 <label for="cut" class="service-box">커트</label>
-                <input type="checkbox" name="service" value="perm" id="perm">
+                <input type="checkbox" name="serviceId" value="S005" id="perm">
                 <label for="perm" class="service-box">펌</label>
-                <input type="checkbox" name="service" value="color" id="color">
+                <input type="checkbox" name="serviceId" value="S024" id="color">
                 <label for="color" class="service-box">컬러</label>
-                <input type="checkbox" name="service" value="clinic" id="clinic">
+                <input type="checkbox" name="serviceId" value="S146" id="clinic">
                 <label for="clinic" class="service-box">클리닉</label>
-                <input type="checkbox" name="service" value="dry" id="dry">
+                <input type="checkbox" name="serviceId" value="S036" id="dry">
                 <label for="dry" class="service-box">드라이</label>
-                <input type="checkbox" name="service" value="consultation" id="consultation">
-                <label for="consultation" class="service-box">디자이너 상담 후 결정</label>
+                {{!<input type="checkbox" name="serviceId" value="consultation" id="consultation">
+                <label for="consultation" class="service-box">디자이너 상담 후 결정</label>}}
             </div>
     <hr>
             <label for="date"><h5>예약 날짜</h5></label>
             <input type="date" id="date" name="date" required>
     <hr>
                 <label for="timeSlots"><h5>예약 시간 선택</h5></label>
-                <div id="timeSlots" class="time-slots"></div>
+               <div id="timeSlots" class="time-slots"></div>
+                <input type="text" name="time" id="timeSelect">
     <hr>
-            <input type="checkbox" id="toggleBtn" class="btn-check">
-            <label for="toggleBtn" class="btn">예약확정</label>
+            <input type="submit" id="toggleBtn" value="예약확정">
             </div>
         </form>
     </div>
