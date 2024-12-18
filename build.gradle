@@ -35,6 +35,5 @@ dependencies {
     testCompile('org.springframework.security:spring-security-test')
     implementation('org.mariadb.jdbc:mariadb-java-client:2.5.4')
     implementation 'net.coobird:thumbnailator:0.4.8'
-
 }
 
