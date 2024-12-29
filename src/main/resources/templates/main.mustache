@@ -5,79 +5,24 @@
     <div class="search-container">
         <input type="text" id="search-input"  placeholder="검색어를 입력하세요">
         <button id="search-button"><h6>검색</h6></button>
+    </div>
 </div>
-</div>
+
 <div id="main-box">
     <div id="best-designer-container" >
 
         <button class="scroll-button left" aria-label="Scroll Left">&#10094;</button>
-
-        <div id="best-designer">
-            <div class="best-designer-title">Best Designer</div>
-            {{#bestDesigners}}
-                <div class="photo-card">
-                    <a href="/designer/{{designerId}}" target="_blank" class="photo-card">
-                        <img src="{{designerPictureId}}" alt="디자이너 {{designerNickname}}"/>
-                        <h6>[{{salonName}}] {{designerNickname}} </h6>
-                    </a>
-                </div>
-            {{/bestDesigners}}
-        </div>
-
-
-      <!--
-        <div id="best-designer">
-            <div class="best-designer-title">Best Designer</div>
-            <div class="photo-card">
-                <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                    <img src="/images/주꿀4.jpg" alt="디자이너 4"/>
-                    <h6>[예쁜미용실]수정디자이너</h6>
-                </a>
+            <div id="best-designer">
+                <div class="best-designer-title">Best Designer</div>
+                {{#bestDesigners}}
+                    <div class="photo-card">
+                        <a href="/designer/{{designerId}}" target="_blank" class="photo-card">
+                            <img src="{{designerPictureId}}" alt="디자이너 {{designerNickname}}"/>
+                            <h6>[{{salonName}}] {{designerNickname}} </h6>
+                        </a>
+                    </div>
+                {{/bestDesigners}}
             </div>
-            <div class="photo-card">
-                <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                    <img src="/images/주꿀3.jpg" alt="디자이너 3"/>
-                    <h6>[pinkhair]준디자이너</h6>
-                </a>
-            </div>
-            <div class="photo-card">
-                <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                    <img src="/images/주꿀2.jpg" alt="디자이너 2"/>
-                    <h6>[허준헤어]미소디자이너</h6>
-                </a>
-            </div>
-            <div class="photo-card">
-                <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                    <img src="/images/designerPicture/LeeHair.png" alt="디자이너 1"/>
-                    <h6>[봉자쌀롱]봉자디자이너</h6>
-                </a>
-            </div>
-            <div class="photo-card">
-                <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                    <img src="/images/designerPicture/민컬러리스트.png" alt="디자이너 5"/>
-                    <h6>[템드룸]테디디자이너</h6>
-                </a>
-            </div>
-            <div class="photo-card">
-                <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                    <img src="/images/designerPicture/현HairExpert.png" alt="디자이너 6"/>
-                    <h6>[리챠드헤어]아름디자이너</h6>
-                </a>
-            </div>
-            <div class="photo-card">
-                <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                    <img src="/images/주꿀7.jpg" alt="디자이너 7"/>
-                    <h6>[박승철헤어]지니디자이너</h6>
-                </a>
-            </div>
-            <div class="photo-card">
-                <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                    <img src="/images/주꿀8.jpg" alt="디자이너 8"/>
-                    <h6>[박미자미용실]박미자디자이너</h6>
-                </a>
-            </div>
-
-        </div>-->
         <button class="scroll-button right" aria-label="Scroll Right">&#10095;</button>
     </div>
 
@@ -88,7 +33,7 @@
             </a>
         </div>
         <div class="mainbutton">
-            <a href="http:// localhost:8081/kingofcut" target="_blank" >
+            <a href="http://localhost:8081/kingofcut" target="_blank" >
                 <img src="/images/icon/free-icon-hair-cutting-4614171.jpg" alt="KingOfCut"/><h6>King of Cut</h6>
             </a>
         </div>
@@ -147,63 +92,22 @@
 
 
     <div id="review-container" >
-
         <button class="scroll-button left" aria-label="Scroll Left">&#10094;</button>
-
-        <div id="real-review">
+            <div id="real-review">
                 <div class="real-review-title">HairHub 리얼 후기</div>
-
-            <div id = "photo-cards">
-                <div class="photo-card">
-                    <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                        <img src="/images/후기4.jpg" alt="후기 4"/><h6>뿌리볼륨[현디자이너]</h6>
-                        <p>가격: 52,000원<br>별점: 4.4</p>
-                    </a>
-                </div>
-                <div class="photo-card">
-                    <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                        <img src="/images/후기3.jpg" alt="후기 3"/><h6>크리닉[수진디자이너]</h6>
-                        <p>가격: 50,000원<br>별점: 5.0</p>
-                    </a>
-                </div>
-                <div class="photo-card">
-                    <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                        <img src="/images/후기2.jpg" alt="후기 2"/><h6>블루블랙염색[주디디자이너]</h6>
-                        <p>가격: 100,000원<br>별점: 4.5</p>
-                    </a>
-                </div>
-                <div class="photo-card">
-                    <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                        <img src="/images/후기1.jpg" alt="후기 1"/><h6>가일컷[아름디자이너]</h6>
-                        <p>가격: 25,000원<br>별점: 4.3</p>
-                    </a>
-                </div>
-                <div class="photo-card">
-                    <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                        <img src="/images/후기5.jpg" alt="후기 5"/><h6>물결펌[희진디자이너]</h6>
-                        <p>가격: 125,000원<br>별점: 4.0</p>
-                    </a>
-                </div>
-                <div class="photo-card">
-                    <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                        <img src="/images/후기6.jpg" alt="후기 6"/><h6>스타일컷[진디자이너]</h6>
-                        <p>가격: 27,000원<br>별점: 4.7</p>
-                    </a>
-                </div>
-                <div class="photo-card">
-                    <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                        <img src="/images/후기7.jpg" alt="후기 7"/><h6>베이비펌[뽀리디자이너]</h6>
-                        <p>가격: 75,000원<br>별점: 3.0</p>
-                    </a>
-                </div>
-                <div class="photo-card">
-                    <a href="https://localhost:8081/designer" target="_blank" class="photo-card">
-                        <img src="/images/주꿀8.jpg" alt="후기 8"/><h6>테슬컷[민디자이너]</h6>
-                        <p>가격: 22,000원<br>별점: 4.9</p>
-                    </a>
-                </div>
+                {{#realReviews}}
+                    <div class="photo-card">
+                        <a href="/reviewList" target="_blank" class="photo-card">
+                            <img src="{{reviewPictureId}}" alt="후기 {{reviewId}}"/>
+                            <h6>{{serviceName}}[{{designerNickname}}]</h6>
+                            <p>가격: {{reviewPrice}}<br>별점: {{reviewRating}}</p>
+                        </a>
+                    </div>
+                {{/realReviews}}
+                {{^realReviews}}
+                    <p>리뷰가 없습니다.</p>
+                {{/realReviews}}
             </div>
-        </div>
         <button class="scroll-button right" aria-label="Scroll Right">&#10095;</button>
     </div>
 </div>

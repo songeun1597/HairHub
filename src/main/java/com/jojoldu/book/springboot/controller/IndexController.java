@@ -7,16 +7,16 @@ import com.jojoldu.book.springboot.entity.*;
 import com.jojoldu.book.springboot.service.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -25,10 +25,11 @@ import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 
+
 @RequiredArgsConstructor  //final 필드와 @NonNull이 붙은 필드에 대해 자동으로 생성자를 생성
 @Controller  //@Controller를 사용한 클래스는 스프링의 빈으로 등록되어 의존성 주입이 가능
-
 public class IndexController {
+
     private final PostsService postsService;
     private final DesignerService designerService;
     private final SalonService salonService;
@@ -37,6 +38,11 @@ public class IndexController {
     private final ReservationService reservationService;
     private final HttpSession httpSession;
     private final UserService userService;
+
+    private RestTemplate restTemplate;  //RestTemplate을 주입받음
+
+    @Value("${domain.url}")
+    private String domainUrl;
 
     //@GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {  //Model 객체는 뷰에 데이터를 전달하는 데 사용
@@ -56,7 +62,12 @@ public class IndexController {
     }
 
     @GetMapping({"/main","/"})
-    public String main(Model model, @LoginUser SessionUser user) {
+    public String main(Model model, @LoginUser SessionUser user,
+                       @RequestParam(defaultValue = "1") int page,
+                       @RequestParam(defaultValue = "10") int itemsPerPage) {
+        Pageable pageable = PageRequest.of(page-1, itemsPerPage);  // Pageable 객체 생성
+        // 도메인 URL을 모델에 추가하여 화면에 전달
+        model.addAttribute("domain", domainUrl);
 
         SessionUser sessionuser = (SessionUser) httpSession.getAttribute("user");
         if (user != null) {
@@ -67,13 +78,11 @@ public class IndexController {
         model.addAttribute("bestDesigners", bestDesigners);
         System.out.println(bestDesigners + "123123");
 
-/*
-        String retUrl = "세션에서 값 받기";
-        if (!"".equals(retUrl)) {
-            return "redirect:" + retUrl;
-        } else {
+        // 페이징된 리뷰 목록 가져오기
+        List<ReviewResponseDto> realReviews = reviewService.getAllReviewsWithDesignerInfo(pageable);
+        System.out.println("realReviews size: " + realReviews.size()); // 디버깅용 출력
+        model.addAttribute("realReviews", realReviews);
 
- */
             return "main";  //"main"라는 이름의 뷰를 반환
         }
 

@@ -21,7 +21,6 @@ a:hover {
     display: flex;
     justify-content: center; /* 자식 요소를 가로 방향으로 중앙 정렬 */
     align-items: center; /* 자식 요소를 세로 방향으로 중앙 정렬 */
-
 }
 
 #search-input {
@@ -63,7 +62,7 @@ a:hover {
     flex-direction: column;
 }
 
-#best-designer-container {
+#best-designer-container, #review-container {
     display: flex;
     height: 500px;
     align-items: center;
@@ -71,6 +70,7 @@ a:hover {
     overflow: hidden; /* 콘텐츠가 컨테이너를 넘칠 때 숨김 */
     width: 100%; /* 컨테이너의 너비를 100%로 설정 */
 }
+
 
 #best-designer {
     position: absolute; /* 배경 이미지 위에 위치시키기 위한 설정 */
@@ -85,7 +85,22 @@ a:hover {
     scroll-behavior: smooth; /* 스크롤 시 부드러운 애니메이션 효과 추가 */
     overflow: hidden;
 }
-.best-designer-title {
+
+#real-review{
+    position: absolute; /* 배경 이미지 위에 위치시키기 위한 설정 */
+    max-width: 80%;
+    height: 450px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row; /* 기본값이므로 생략 가능, 가로로 정렬되도록 설정 */
+    justify-content: center; /* 자식 요소들을 가로 방향으로 중앙 정렬 */
+    align-items: center; /* 자식 요소들을 세로 방향으로 중앙 정렬 */
+    gap: 10px; /* 요소들 사이의 간격을 설정 (필요에 따라 조정) */
+    scroll-behavior: smooth; /* 스크롤 시 부드러운 애니메이션 효과 추가 */
+    overflow: hidden;
+}
+
+.best-designer-title, .real-review-title {
     top: 0px; /* 원하는 위치로 조정 */
     margin-bottom: 50px;
     font-size: 2rem; /* 폰트 크기 조정 */
@@ -100,7 +115,7 @@ a:hover {
 .photo-card{
     gap: 10px; /* 사진 간의 간격 */
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 100px;
     margin-bottom: 35px;
 }
 
@@ -135,6 +150,7 @@ a:hover {
     height: 50px; /* 버튼 높이 */
     width: 50px; /* 버튼 너비 */
     transform: translateY(-50%);
+    pointer-events: auto; /* 클릭 이벤트가 활성화되도록 */
 }
 
 .scroll-button.left {
@@ -168,7 +184,6 @@ a:hover {
     text-align: center; /* alt 텍스트 중앙 정렬 */
     margin: 10px; /* 각 서비스 간의 간격 */
     width: 160px;
-
 }
 
 /* 각 KingOfService의 스타일 설정 */
@@ -184,7 +199,6 @@ a:hover {
 }
 
 .mainbutton img:hover {
-
     transform: translateY(-10px) scale(1.2);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
@@ -231,9 +245,7 @@ video {
     display: flex;
     flex: 1; /* 공간을 균등하게 나누도록 설정 */
     margin-left: 10px;
-
 }
-
 
 h6{
     text-align: center;
@@ -242,47 +254,5 @@ h6{
 p{
     text-align: center;
     font-weight: 500;;
-}
-
-#review-container {
-    display: flex;
-    height: 500px;
-    width: 1900px;
-    align-items: center;
-    justify-content: center; /* 자식 요소들을 가로 방향으로 중앙 정렬 */
-    overflow: hidden; /* 콘텐츠가 컨테이너를 넘칠 때 숨김 */
-    width: 100%; /* 컨테이너의 너비를 100%로 설정 */
-    position: relative;
-}
-
-#real-review {
-    position: absolute; /* 배경 이미지 위에 위치시키기 위한 설정 */
-    max-width: 80%;
-    height: 400px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row; /* 기본값이므로 생략 가능, 가로로 정렬되도록 설정 */
-    justify-content: center; /* 자식 요소들을 가로 방향으로 중앙 정렬 */
-    align-items: center; /* 자식 요소들을 세로 방향으로 중앙 정렬 */
-    gap: 10px; /* 요소들 사이의 간격을 설정 (필요에 따라 조정) */
-    scroll-behavior: smooth; /* 스크롤 시 부드러운 애니메이션 효과 추가 */
-    overflow: hidden;
-}
-
-
-.real-review-title {
-    top: 5px; /* 원하는 위치로 조정 */
-    margin-bottom: 50px;
-    font-size: 2rem; /* 폰트 크기 조정 */
-    font-weight: 600;
-    color: #333; /* 원하는 색상으로 조정 */
-    background: transparent; /* 배경색을 약간 흰색으로 설정해 가독성 향상 */
-    border-radius: 5px;
-    position: absolute;
-}
-
-#photo-cards{
-    margin-top: 100px;
-    display: flex;
 }
 
