@@ -72,6 +72,7 @@ public class IndexController {
         SessionUser sessionuser = (SessionUser) httpSession.getAttribute("user");
         if (user != null) {
             model.addAttribute("userNm", user.getName());
+            model.addAttribute("userId", user.getUserId());
         }
         // 8개의 디자이너 정보만 가져오기 (예시로 상위 8명 가져오기)
         List<DesignerResponseDto> bestDesigners = designerService.findTop8Designers();
@@ -97,8 +98,56 @@ public class IndexController {
         return "desiner";
     }
 
+//    @GetMapping("/mypage/{id}")
+//    public String my(Model model, @PathVariable String id){
+//        UserResponseDto userDto = userService.findById(id);
+//        List<ReviewResponseDto> reviewDtoList = reviewService.findAllByUserId(id); // 여러 리뷰일 수 있으므로 리스트로 처리
+//        model.addAttribute("user", userDto);
+//        model.addAttribute("reviews", reviewDtoList);
+//        return "mypage";
+//    }
 
-    @GetMapping("/salon/{id}")
+
+    @GetMapping("/mypage/{id}")
+    public String my(Model model, @PathVariable String id,
+                     @RequestParam(defaultValue = "1") int page,
+                     @RequestParam(defaultValue = "10") int itemsPerPage) {
+
+        // 유저 정보 조회
+        UserResponseDto userDto = userService.findById(id);
+
+        // Pageable 객체 생성 (page는 1부터 시작하므로 page-1로 설정)
+        Pageable pageable = PageRequest.of(page - 1, itemsPerPage);
+
+        // 해당 유저의 리뷰만 가져오기
+        List<ReviewResponseDto> reviews = reviewService.getReviewsByUserId(id, pageable); // 해당 유저의 리뷰 가져오기
+        // 전체 리뷰 수와 페이지 정보 추가
+        long totalReviews = reviewService.getTotalCountByUserId(id);  // 해당 유저의 전체 리뷰 개수 가져오기
+        int totalPages = (int) Math.ceil((double) totalReviews / itemsPerPage);  // 총 페이지 수 계산
+
+        // 모델에 유저 정보, 리뷰 목록 추가
+        model.addAttribute("user", userDto);
+        model.addAttribute("reviews", reviews);  // 해당 유저의 리뷰 목록
+        model.addAttribute("currentPage", page);  // 현재 페이지 번호 추가
+        model.addAttribute("totalPages", totalPages);  // 총 페이지 수 추가
+        model.addAttribute("itemsPerPage", itemsPerPage); // 페이지당 아이템 수 추가
+
+        // 이전, 다음 페이지 계산
+        int prevPage = (page > 1) ? page - 1 : 1;
+        int nextPage = (page < totalPages) ? page + 1 : totalPages;
+
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+
+        return "mypage"; // 뷰 이름 (HTML 템플릿 파일 이름)
+    }
+
+
+
+
+
+
+        @GetMapping("/salon/{id}")
     public String salon(Model model, @PathVariable String id) {
 //        model.addAttribute("salon", salonService.findById(id));
 //        return "salon";

@@ -73,6 +73,19 @@ public class ReviewService {
         }).collect(Collectors.toList());
     }
 
+//    public List<ReviewResponseDto> findAllByUserId(String userId) {
+//        List<Review> reviews = reviewRepository.findAllByReservation_User_userId(userId);
+//        return reviews.stream().map(review -> {
+//            ReviewResponseDto reviewDto = new ReviewResponseDto(review);
+//            reviewDto.setReservationDate(review.getReservation().getTimeSlots());
+//            reviewDto.setUserId(review.getReservation().getUserId());
+//            reviewDto.setServiceName(review.getReservation().getService().getServiceName());
+//            reviewDto.setRevisiting(review.getReservation().getRevisitCount());
+//            return reviewDto;
+//        }).collect(Collectors.toList());
+//    }
+
+
     public long getTotalCount() {
         return reviewRepository.count();
     }
@@ -80,6 +93,39 @@ public class ReviewService {
     //public List<Review> getReviewsByDesignerId(String designerId) {
     // return reviewRepository.findReviewsByDesignerId(designerId);
     //}
+
+
+
+    public List<ReviewResponseDto> getReviewsByUserId(String userId, Pageable pageable) {
+        // 해당 유저의 리뷰를 페이징 처리하여 가져옴
+        Page<Review> reviews = reviewRepository.findAllByUserId(userId, pageable);
+
+        // Review 객체를 ReviewResponseDto로 변환하여 반환
+        return reviews.stream().map(review -> {
+            ReviewResponseDto reviewDto = new ReviewResponseDto(review);
+
+            // 예약 정보에서 필요한 데이터 추가
+            reviewDto.setReservationDate(review.getReservation().getTimeSlots());
+            reviewDto.setUserId(review.getReservation().getUserId());
+            reviewDto.setServiceName(review.getReservation().getService().getServiceName());
+            reviewDto.setRevisiting(review.getReservation().getRevisitCount());
+            reviewDto.setAddress(review.getReservation().getService().getDesigner().getSalon().getAddress());
+            reviewDto.setSalonName(review.getReservation().getService().getDesigner().getSalon().getSalonName());
+
+            // 디자이너 정보 추가
+            reviewDto.setDesignerNickname(review.getReservation().getService().getDesigner().getDesignerNickname());
+            reviewDto.setDesignerId(review.getReservation().getService().getDesigner().getDesignerId());
+
+            return reviewDto;
+        }).collect(Collectors.toList());
+    }
+
+    public long getTotalCountByUserId(String userId) {
+        return reviewRepository.countByUserId(userId);
+    }
+
+
+
 
 }
 

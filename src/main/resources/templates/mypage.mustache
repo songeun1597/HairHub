@@ -1,0 +1,40 @@
+{{>layout/header}}
+<link rel="stylesheet" href="/css/reviewListCss.css" />
+
+
+<div id="main-box">
+
+    <div id="review-container" >
+
+        {{#reviews}}
+            <div class="review-inner">
+                <div class="review-image">
+                    <img src="{{reviewPictureId}}" alt="{{reviewId}}의 사진">
+                </div>
+                <div class="review-info">
+                    <h2>{{designerNickname}} 후기 [{{salonName}}]
+                        <a href="/designer/{{designerId}}" class="reservation-link">예약 바로가기</a>
+                    </h2><hr>
+                    <h5 class="rating">[{{serviceName}}]&nbsp;&nbsp;별점: <span class="star-rating">{{reviewRating}}</span></h5>
+                    <h6> {{reviewContent}}</h6><br>
+                    <div class="review-footer">
+                        <p>[재방문수: {{revisiting}}]</p>
+                        <p>{{address}}</p>
+                        <p class="reservation-date">예약 날짜: 2024-08-07</p>
+                    </div>
+                </div>
+            </div>
+        {{/reviews}}
+        {{^reviews}}
+            <p>리뷰가 없습니다.</p>
+        {{/reviews}}
+
+    </div>
+</div>
+
+
+<script src="/js/mainscript.js" defer></script>
+
+{{>layout/footer}}
+
+
