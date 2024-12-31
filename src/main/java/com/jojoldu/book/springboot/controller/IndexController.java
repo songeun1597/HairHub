@@ -62,18 +62,14 @@ public class IndexController {
     }
 
     @GetMapping({"/main","/"})
-    public String main(Model model, @LoginUser SessionUser user,
+    public String main(Model model,
                        @RequestParam(defaultValue = "1") int page,
                        @RequestParam(defaultValue = "10") int itemsPerPage) {
         Pageable pageable = PageRequest.of(page-1, itemsPerPage);  // Pageable 객체 생성
         // 도메인 URL을 모델에 추가하여 화면에 전달
         model.addAttribute("domain", domainUrl);
 
-        SessionUser sessionuser = (SessionUser) httpSession.getAttribute("user");
-        if (user != null) {
-            model.addAttribute("userNm", user.getName());
-            model.addAttribute("userId", user.getUserId());
-        }
+
         // 8개의 디자이너 정보만 가져오기 (예시로 상위 8명 가져오기)
         List<DesignerResponseDto> bestDesigners = designerService.findTop8Designers();
         model.addAttribute("bestDesigners", bestDesigners);
@@ -215,30 +211,32 @@ public class IndexController {
     }
 
 
-    @GetMapping("/designerList")
+        @GetMapping("/designerList")
 
-    public String getDesignerList(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "20") int itemsPerPage,
-                                  @RequestParam(required = false, defaultValue = "rating") String filter) {
-        model.addAttribute("filter", filter);
+        public String getDesignerList(Model model,
+        @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "20") int itemsPerPage,
+                                      @RequestParam(required = false, defaultValue = "rating") String filter) {
 
-        Pageable pageable = PageRequest.of(page-1, itemsPerPage, Sort.by(filter).descending());
-        List<DesignerResponseDto> designerList = designerService.getDesignerList(pageable);
+            model.addAttribute("filter", filter);
 
-        long totalItems = designerService.getTotalCount(); // 전체 디자이너 수
-        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
-        model.addAttribute("designers", designerList); // 디자이너 목록 추가
-        model.addAttribute("currentPage", page); // 현재 페이지 번호 추가
-        model.addAttribute("totalPages", totalPages); // 총 페이지 수 추가
-        model.addAttribute("itemsPerPage", itemsPerPage); // 페이지당 아이템 수 추가
-        // 이전, 다음 페이지 계산
-        int prevPage = (page > 1) ? page - 1 : 1;
-        int nextPage = (page < totalPages) ? page + 1 : totalPages;
+            Pageable pageable = PageRequest.of(page-1, itemsPerPage, Sort.by(filter).descending());
+            List<DesignerResponseDto> designerList = designerService.getDesignerList(pageable);
 
-        model.addAttribute("prevPage", prevPage);
-        model.addAttribute("nextPage", nextPage);
+            long totalItems = designerService.getTotalCount(); // 전체 디자이너 수
+            int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
+            model.addAttribute("designers", designerList); // 디자이너 목록 추가
+            model.addAttribute("currentPage", page); // 현재 페이지 번호 추가
+            model.addAttribute("totalPages", totalPages); // 총 페이지 수 추가
+            model.addAttribute("itemsPerPage", itemsPerPage); // 페이지당 아이템 수 추가
+            // 이전, 다음 페이지 계산
+            int prevPage = (page > 1) ? page - 1 : 1;
+            int nextPage = (page < totalPages) ? page + 1 : totalPages;
 
-        return "designerList"; // 뷰 이름 (HTML 템플릿 파일 이름)
-    }
+            model.addAttribute("prevPage", prevPage);
+            model.addAttribute("nextPage", nextPage);
+
+            return "designerList"; // 뷰 이름 (HTML 템플릿 파일 이름)
+        }
 
     @GetMapping("/reviewList")
     public String getReviewList(Model model,
