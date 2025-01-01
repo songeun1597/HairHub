@@ -32,7 +32,7 @@ public class ServiceService {
                 return new IllegalArgumentException("디자이너를 찾을 수 없습니다");
             }
         }*/
-        return new ServiceResponseDto(byId.orElseThrow(()->new IllegalArgumentException("서비스를 찾을 수 없습니다")));
+        return new ServiceResponseDto(byId.orElseThrow(() -> new IllegalArgumentException("서비스를 찾을 수 없습니다")));
     }
 
     public List<com.jojoldu.book.springboot.entity.Service> findAllByIds(List<String> serviceIds) {
@@ -51,6 +51,7 @@ public class ServiceService {
     }
 
     public void save(Reservation reservation) {
+
         reservationRepository.save(reservation);
     }
 }

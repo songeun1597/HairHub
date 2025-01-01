@@ -38,6 +38,7 @@ public class IndexController {
     private final ReservationService reservationService;
     private final HttpSession httpSession;
     private final UserService userService;
+    private final UserCondition userCondition;
 
     private RestTemplate restTemplate;  //RestTemplate을 주입받음
 
@@ -94,16 +95,6 @@ public class IndexController {
         return "desiner";
     }
 
-//    @GetMapping("/mypage/{id}")
-//    public String my(Model model, @PathVariable String id){
-//        UserResponseDto userDto = userService.findById(id);
-//        List<ReviewResponseDto> reviewDtoList = reviewService.findAllByUserId(id); // 여러 리뷰일 수 있으므로 리스트로 처리
-//        model.addAttribute("user", userDto);
-//        model.addAttribute("reviews", reviewDtoList);
-//        return "mypage";
-//    }
-
-
     @GetMapping("/mypage/{id}")
     public String my(Model model, @PathVariable String id,
                      @RequestParam(defaultValue = "1") int page,
@@ -139,14 +130,8 @@ public class IndexController {
     }
 
 
-
-
-
-
         @GetMapping("/salon/{id}")
     public String salon(Model model, @PathVariable String id) {
-//        model.addAttribute("salon", salonService.findById(id));
-//        return "salon";
         SalonResponseDto salonDto = salonService.findById(id);
         model.addAttribute("salon", salonDto);
         model.addAttribute("designers", salonDto.getDesigners()); // 디자이너 목록 추가
@@ -173,7 +158,6 @@ public class IndexController {
             List<ReviewResponseDto> reviews = reviewService.getReviewsByDesignerId(id);
             model.addAttribute("reviews", reviews);
 
-
         } else {
             // 디자이너를 찾을 수 없는 경우
             model.addAttribute("error", "디자이너를 찾을 수 없습니다.");
@@ -184,15 +168,12 @@ public class IndexController {
     @PostMapping("designer/{id}")
     public String createReservation(@LoginUser SessionUser user,
                                     @PathVariable String id,
-                                    //@RequestParam String gender,
-                                    //@RequestParam List<String> serviceIds,
-                                   // @RequestParam String serviceIds,
-                                    //@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-                                   // @RequestParam String timeSlots, // 시간 선택을 위한 파라미터 추가
-                                    ReservationResponseDto reservationResponseDto,
                                     Model model) {
         System.out.println(user.getUserId()+user.getName()+user.getEmail()+"11111111111111111111111111111111555555555");
         //DesignerResponseDto designerDto = designerService.findById(id);
+        // reservationResponseDto 초기화
+        ReservationResponseDto reservationResponseDto = new ReservationResponseDto();
+
         if(user == null || user.getUserId() == null) {
 
             throw new RuntimeException("사용자를 알 수 없습니다.");
@@ -201,8 +182,8 @@ public class IndexController {
 
         }
 
-            // 예약 저장
-            reservationService.save(reservationResponseDto);
+        // 예약 저장
+        reservationService.save(reservationResponseDto);
 
         // 예약 완료 후 필요한 페이지로 리다이렉트
         //model.addAttribute("message", "예약이 완료되었습니다.");

@@ -17,12 +17,12 @@ public class ReservationResponseDto {
     private String reservationId;
     //서비스아이디
     private String serviceId;
+    //예약자 상태
+    private String conditionId;
     //유저고유값
     private String userId;
     //예약시간
     private LocalDateTime timeSlots;
-    //예약자 상태
-    private String userCondition;
     //송금여부
     private String remittance;
     //예약메모
@@ -39,6 +39,7 @@ public class ReservationResponseDto {
     public ReservationResponseDto(Reservation reservation) {
             this.reservationId = reservation.getReservationId();
             this.serviceId = reservation.getServiceId();
+            this.conditionId = reservation.getConditionId();
             this.userId = reservation.getUserId();
             this.timeSlots = reservation.getTimeSlots();
             this.remittance = reservation.getRemittance();

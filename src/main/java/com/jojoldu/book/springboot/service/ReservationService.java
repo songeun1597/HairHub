@@ -5,10 +5,7 @@ import com.jojoldu.book.springboot.dto.ReservationResponseDto;
 import com.jojoldu.book.springboot.entity.Designer;
 import com.jojoldu.book.springboot.entity.Reservation;
 import com.jojoldu.book.springboot.entity.User;
-import com.jojoldu.book.springboot.repository.DesignerRepository;
-import com.jojoldu.book.springboot.repository.ReservationRepository;
-import com.jojoldu.book.springboot.repository.ServiceRepository;
-import com.jojoldu.book.springboot.repository.UserRepository;
+import com.jojoldu.book.springboot.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +27,8 @@ public class ReservationService {
     private ServiceRepository serviceRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserConditionRepository userConditionRepository;
 
 
 

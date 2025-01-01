@@ -17,7 +17,6 @@ public class Reservation {
     private String remittance;
     private String memo;
     private int revisitCount;
-
     private String gender;
 
     @ManyToOne
@@ -28,9 +27,14 @@ public class Reservation {
     @JoinColumn(name="serviceId")
     private Service service;
 
-    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Review review;  //예약에 대한 리뷰
     //private UserCondition;
+
+    @OneToOne
+    @JoinColumn(name="conditionId") // Reservation의 PK가 이 컬럼에 저장됨
+    private UserCondition userCondition;
+
 
     // Service ID를 반환하는 메서드 추가
     public String getServiceId() {
@@ -40,12 +44,10 @@ public class Reservation {
     public String getUserId(){
         return user != null ? user.getUserId() : null;
     }
+
+    public String getConditionId(){
+        return userCondition != null ? userCondition.getConditionId() : null;
+    }
 }
-
-
-//    // 서비스의 디자이너를 가져오는 메서드
-//    public Designer getDesigner() {
-//        return service != null ? service.getDesigner() : null;
-//    }
 
 
