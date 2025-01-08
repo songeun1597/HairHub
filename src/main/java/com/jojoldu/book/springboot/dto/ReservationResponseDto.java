@@ -46,6 +46,7 @@ public class ReservationResponseDto {
             this.memo = reservation.getMemo();
             this.revisitCount = reservation.getRevisitCount();
             this.gender = reservation.getGender();
+           // this.time = reservation.getTime();
 
 
 

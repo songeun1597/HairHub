@@ -18,6 +18,7 @@ public class Reservation {
     private String memo;
     private int revisitCount;
     private String gender;
+    //private String time;
 
     @ManyToOne
     @JoinColumn(name="userId"    )
@@ -48,6 +49,8 @@ public class Reservation {
     public String getConditionId(){
         return userCondition != null ? userCondition.getConditionId() : null;
     }
+
+
 }
 
 

@@ -8,8 +8,10 @@ import javax.persistence.*;
 
 @Getter @Setter
 @Entity
+@Table(name = "usercondition")
 public class UserCondition {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String conditionId;
     private String gender;
     private String hairLength;

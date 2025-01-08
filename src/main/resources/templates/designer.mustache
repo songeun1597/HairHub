@@ -78,8 +78,8 @@
                 <label for="clinic" class="service-box">클리닉</label>
                 <input type="checkbox" name="serviceId" value="S036" id="dry">
                 <label for="dry" class="service-box">드라이</label>
-                {{!<input type="checkbox" name="serviceId" value="consultation" id="consultation">
-                <label for="consultation" class="service-box">디자이너 상담 후 결정</label>}}
+                <input type="checkbox" name="serviceId" value="consultation" id="consultation">
+                <label for="consultation" class="service-box">디자이너 상담 후 결정</label>
             </div>
     <hr>
             <label for="date"><h5>예약 날짜</h5></label>
@@ -87,9 +87,10 @@
     <hr>
                 <label for="timeSlots"><h5>예약 시간 선택</h5></label>
                <div id="timeSlots" class="time-slots"></div>
-                <input type="text" name="time" id="timeSelect">
+                <input type="hidden" name="time" id="timeSelect">
     <hr>
-            <input type="submit" id="toggleBtn" value="예약확정">
+                <input type="submit" id="toggleBtn" value="예약확정">
+
             </div>
         </form>
     </div>

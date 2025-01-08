@@ -15,8 +15,9 @@ public class UserconditionService {
     @Autowired
     private UserConditionRepository userConditionRepository;
 
-    @Autowired
-    private ReservationRepository reservationRepository;
+    public UserCondition save(UserCondition userCondition) {
+        return userConditionRepository.save(userCondition);
+    }
 
     public UserConditionResponseDto findById(String id){
         Optional<UserCondition> byId = userConditionRepository.findById(id);

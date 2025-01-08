@@ -1,0 +1,61 @@
+
+<div id="conditionFormFragment">
+    <h4>현재 머리상태 </h4>
+    <form action="/submit?reservationId={{reservationId}}" method="POST">
+        <!-- 머리 기장 선택 -->
+        <label for="hairLength"><h5>머리 기장 선택</h5></label>
+        <div class="hair-length-selection">
+            <input type="radio" name="hairLength" value="어깨선" id="shoulderLength">
+            <label for="shoulderLength" class="condition-box">어깨선</label>
+
+            <input type="radio" name="hairLength" value="가슴높이" id="chestHeight">
+            <label for="chestHeight" class="condition-box">가슴높이</label>
+
+            <input type="radio" name="hairLength" value="단발" id="bobCut">
+            <label for="bobCut" class="condition-box">단발</label>
+
+            <input type="radio" name="hairLength" value="숏컷" id="shortCut">
+            <label for="shortCut" class="condition-box">숏컷</label>
+        </div>
+        <hr>
+
+        <!-- 머리카락 특성 선택 -->
+        <label for="hairCharacter"><h5>머리카락 특성 선택</h5></label>
+        <div class="hair-character-selection">
+            <input type="radio" name="hairCharacter" value="직모" id="straightHair">
+            <label for="straightHair" class="condition-box">직모</label>
+
+            <input type="radio" name="hairCharacter" value="반곱슬" id="wavyHair">
+            <label for="wavyHair" class="condition-box">반곱슬</label>
+
+            <input type="radio" name="hairCharacter" value="악성곱슬" id="curlyHair">
+            <label for="curlyHair" class="condition-box">악성곱슬</label>
+        </div>
+        <hr>
+
+        <!-- 상태 선택 -->
+        <label for="hairState"><h5>상태 선택</h5></label>
+        <div class="hair-state-selection">
+            <input type="radio" name="hairState" value="펌" id="perm">
+            <label for="perm" class="condition-box">펌</label>
+
+            <input type="radio" name="hairState" value="염색" id="coloring">
+            <label for="coloring" class="condition-box">염색</label>
+
+            <input type="radio" name="hairState" value="탈색" id="bleach">
+            <label for="bleach" class="condition-box">탈색</label>
+
+            <input type="radio" name="hairState" value="해당없음" id="noCondition">
+            <label for="noCondition" class="condition-box">해당없음</label>
+        </div>
+        <hr>
+
+        <!-- 텍스트 입력 필드 (추가적인 요구 사항을 입력할 수 있는 부분) -->
+        <label for="additionalRequest"><h5>추가 요청</h5></label>
+        <textarea id="additionalRequest" name="additionalRequest" rows="4" placeholder="추가 요청 사항을 입력해주세요."></textarea>
+        <hr>
+
+        <!-- 예약하기 버튼 -->
+        <input type="submit" value="예약하기" class="submit-button">
+    </form>
+</div>

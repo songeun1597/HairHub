@@ -3,16 +3,19 @@ const workStartHour = 10;
 const workEndHour = 20;
 const timeSlotsContainer = document.getElementById("timeSlots");
 
+
 // 예약된 시간을 서버로부터 받아왔다고 가정 (예: 13:00, 15:30은 예약된 상태)
 const bookedTimes = {
     "2024-10-11": ["13:00", "15:30"],
     "2024-10-12": ["12:00", "16:00"], "2024-10-15": ["13:00", "15:30"], "2024-10-16": ["12:00", "16:00"],
 }
 
+
 function isBookedTime(date, timeSlot) {
     const bookedForDate = bookedTimes[date] || []; // 해당 날짜의 예약된 시간 목록을 가져옴
     return bookedForDate.includes(timeSlot); // 해당 시간이 예약된 시간인지 확인
 }
+
 
 // 현재 시간을 기준으로 2시간 후의 시간을 반환하는 함수
 function getMinTime() {
@@ -41,46 +44,43 @@ function isPastTime(slotTime) {
     return selectedDate < now;
 }
 
+
 // 시간 슬롯을 동적으로 생성하는 함수
 function generateTimeSlots() {
     const selectedDate = document.querySelector("#date").value;
 
-
-
     for (let hour = workStartHour; hour < workEndHour; hour++) {
         for (let minute of [0, 30]) {
             const timeSlot = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
-
-
-// 버튼 생성
+            // 버튼 생성
             const button = document.createElement("button");
             button.textContent = timeSlot;
             button.classList.add("time-slot-button");
             button.type = "button";
-
-// 예약된 시간이거나 과거 시간이면 비활성화
+            // 예약된 시간이거나 과거 시간이면 비활성화
             if (isBookedTime(selectedDate, timeSlot) || isPastTime(timeSlot)) {
                 button.disabled = true;
                 button.classList.add("disabled"); // 스타일 추가
             }
             //let ispast = (isBookedTime(selectedDate, timeSlot) || isPastTime(timeSlot));
             //let timeselect = `<input type="radio" name="timeSlots" value="${timeSlot}" ${ispast?'disabled':''} id="timeSlots${timeSlot}">
-        //<label for="timeSlots${timeSlot}" class="gender-box">${timeSlot}</label>`;
-// 클릭 이벤트
+            //<label for="timeSlots${timeSlot}" class="gender-box">${timeSlot}</label>`;
+            // 클릭 이벤트
             button.addEventListener("click", () => {
-// 사용자가 선택한 시간을 처리
-               console.log(`예약 시간 선택: ${timeSlot}`);
-               let timeinput = document.querySelector('#timeSelect');
-               timeinput.value = timeSlot;
+                // 사용자가 선택한 시간을 처리
+                console.log(`예약 시간 선택: ${timeSlot}`);
+                let timeinput = document.querySelector('#timeSelect');
+                timeinput.value = timeSlot;
 
             });
 
-// 컨테이너에 버튼 추가
+            // 컨테이너에 버튼 추가
             timeSlotsContainer.appendChild(button);
             //timeSlotsContainer.insertAdjacentHTML("beforeend", timeselect);
         }
     }
 }
+
 
 // 시간 슬롯 생성
 generateTimeSlots();
@@ -139,3 +139,91 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
+/*
+    document.getElementById("reservationBtn").addEventListener("click", function() {
+    // 예약확정 버튼 클릭 시, AJAX로 conditionFormFragment를 요청
+    fetch("/designer/{{designer.designerId}}/condition-form")
+        .then(response => response.text())
+        .then(data => {
+            // 받아온 데이터로 #conditionFormFragment에 내용 추가
+            document.getElementById("conditionFormFragment").innerHTML = data;
+        })
+        .catch(error => console.error("AJAX 요청 실패:", error));
+});
+
+*/
+
+
+/*
+document.getElementById('reservationConfirmButton').addEventListener('click', function () {
+    // 예약 데이터를 담을 객체
+    const reservationData = {
+        gender: document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : '',
+        serviceIds: Array.from(document.querySelectorAll('input[name="serviceId"]:checked')).map(service => service.value),
+        date: document.getElementById('date').value,
+        time: document.getElementById('timeSlots').value
+    };
+
+    // 서버로 예약 요청
+    fetch('/api/reservation/save', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reservationData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.reservationId) {
+                document.getElementById('reservationId').value = data.reservationId;  // 예약 아이디 값을 입력 필드에 넣기
+                alert('예약이 완료되었습니다. 예약 ID: ' + data.reservationId);
+            } else {
+                alert('예약을 처리할 수 없습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});*//*
+document.getElementById('reservationBtn').addEventListener('click', function (e) {
+    e.preventDefault(); // 페이지 리로드 방지
+    // AJAX 요청으로 conditionform.mustache 불러오기
+    fetch('/fragments/conditionForm', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reservationData)
+    }) // 템플릿 경로
+        .then(response => response.json())
+        .then(data => {
+            if (data.reservationId) {
+                document.getElementById('reservationId').value = data.reservationId;  // 예약 아이디 값을 입력 필드에 넣기
+                alert('예약이 완료되었습니다. 예약 ID: ' + data.reservationId);
+            } else {
+                alert('예약을 처리할 수 없습니다.');
+            }
+        });
+})
+*/
+// 서버로 예약 요청
+/*fetch('/api/reservation/save', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(reservationData)
+})
+    .then(response => response.json())
+    .then(data => {
+        if (data.reservationId) {
+            document.getElementById('reservationId').value = data.reservationId;  // 예약 아이디 값을 입력 필드에 넣기
+            alert('예약이 완료되었습니다. 예약 ID: ' + data.reservationId);
+        } else {
+            alert('예약을 처리할 수 없습니다.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });*/

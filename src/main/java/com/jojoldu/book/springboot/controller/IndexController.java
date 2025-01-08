@@ -7,12 +7,15 @@ import com.jojoldu.book.springboot.entity.*;
 import com.jojoldu.book.springboot.service.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +30,10 @@ import java.util.List;
 
 
 @RequiredArgsConstructor  //final 필드와 @NonNull이 붙은 필드에 대해 자동으로 생성자를 생성
-@Controller  //@Controller를 사용한 클래스는 스프링의 빈으로 등록되어 의존성 주입이 가능
+@Controller   //@Controller를 사용한 클래스는 스프링의 빈으로 등록되어 의존성 주입이 가능
 public class IndexController {
+
+
 
     private final PostsService postsService;
     private final DesignerService designerService;
@@ -38,7 +43,7 @@ public class IndexController {
     private final ReservationService reservationService;
     private final HttpSession httpSession;
     private final UserService userService;
-    private final UserCondition userCondition;
+    private final UserconditionService userconditionService;
 
     private RestTemplate restTemplate;  //RestTemplate을 주입받음
 
@@ -57,16 +62,16 @@ public class IndexController {
     }
 
     @GetMapping({"/map"})
-    public String map(){
+    public String map() {
 
         return "map";
     }
 
-    @GetMapping({"/main","/"})
+    @GetMapping({"/main", "/"})
     public String main(Model model,
                        @RequestParam(defaultValue = "1") int page,
                        @RequestParam(defaultValue = "10") int itemsPerPage) {
-        Pageable pageable = PageRequest.of(page-1, itemsPerPage);  // Pageable 객체 생성
+        Pageable pageable = PageRequest.of(page - 1, itemsPerPage);  // Pageable 객체 생성
         // 도메인 URL을 모델에 추가하여 화면에 전달
         model.addAttribute("domain", domainUrl);
 
@@ -81,8 +86,8 @@ public class IndexController {
         System.out.println("realReviews size: " + realReviews.size()); // 디버깅용 출력
         model.addAttribute("realReviews", realReviews);
 
-            return "main";  //"main"라는 이름의 뷰를 반환
-        }
+        return "main";  //"main"라는 이름의 뷰를 반환
+    }
 
 
 
@@ -142,49 +147,43 @@ public class IndexController {
     @GetMapping("/designer/{id}")
     public String designer(Model model, @PathVariable String id) {
         DesignerResponseDto designerDto = designerService.findById(id);
-
         if (designerDto != null) {
             // 디자이너 정보를 모델에 추가
             model.addAttribute("designer", designerDto);
-
             // 디자이너가 속한 살롱 정보 추가
             if (designerDto.getSalonId() != null) {
                 model.addAttribute("salon", salonService.findById(designerDto.getSalonId()));
             } else {
                 model.addAttribute("salon", null);  //Salon이 없는 경우
             }
-
             // 디자이너의 리뷰 목록 추가
             List<ReviewResponseDto> reviews = reviewService.getReviewsByDesignerId(id);
             model.addAttribute("reviews", reviews);
-
         } else {
             // 디자이너를 찾을 수 없는 경우
             model.addAttribute("error", "디자이너를 찾을 수 없습니다.");
         }
         return "designer";
     }
-
     @PostMapping("designer/{id}")
     public String createReservation(@LoginUser SessionUser user,
                                     @PathVariable String id,
+                                    //@RequestParam String gender,
+                                    //@RequestParam List<String> serviceIds,
+                                    // @RequestParam String serviceIds,
+                                    //@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+                                    // @RequestParam String timeSlots, // 시간 선택을 위한 파라미터 추가
+                                    ReservationResponseDto reservationResponseDto,
                                     Model model) {
         System.out.println(user.getUserId()+user.getName()+user.getEmail()+"11111111111111111111111111111111555555555");
         //DesignerResponseDto designerDto = designerService.findById(id);
-        // reservationResponseDto 초기화
-        ReservationResponseDto reservationResponseDto = new ReservationResponseDto();
-
         if(user == null || user.getUserId() == null) {
-
             throw new RuntimeException("사용자를 알 수 없습니다.");
         }else{
             reservationResponseDto.setUserId(user.getUserId());
-
         }
-
         // 예약 저장
         reservationService.save(reservationResponseDto);
-
         // 예약 완료 후 필요한 페이지로 리다이렉트
         //model.addAttribute("message", "예약이 완료되었습니다.");
         return "redirect:/designer/"+id;
@@ -192,32 +191,86 @@ public class IndexController {
     }
 
 
-        @GetMapping("/designerList")
+   /* @GetMapping("/designer/{designerId}/condition-form")
+    public String getConditionForm(@PathVariable Long designerId, Model model) {
+        // 예약 폼 데이터를 모델에 추가 (필요한 데이터가 있다면)
+        model.addAttribute("designerId", designerId);
+        return "fragments/conditionFormFragment"; // 이 경로는 적절히 설정
+    }
 
-        public String getDesignerList(Model model,
-        @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "20") int itemsPerPage,
-                                      @RequestParam(required = false, defaultValue = "rating") String filter) {
 
-            model.addAttribute("filter", filter);
 
-            Pageable pageable = PageRequest.of(page-1, itemsPerPage, Sort.by(filter).descending());
-            List<DesignerResponseDto> designerList = designerService.getDesignerList(pageable);
+    @GetMapping("/fragments/conditionForm")
+    public String getConditionForm(Model model, @RequestParam("reservationId") String reservationId) {
+// reservationId 처리 로직
+        return "fragments/conditionForm";
+    }
+    //유저상태를 저장하는 메서드
+    @PostMapping("/fragments/conditionForm")
+    public String submitCondition(@RequestParam("hairLength") String hairLength,
+                                  @RequestParam("hairCharacter") String hairCharacter,
+                                  @RequestParam("hairState") String hairState,
+                                  @RequestParam("additionalRequest") String additionalRequest,
+                                  @RequestParam("reservationId") String reservationId) {
 
-            long totalItems = designerService.getTotalCount(); // 전체 디자이너 수
-            int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
-            model.addAttribute("designers", designerList); // 디자이너 목록 추가
-            model.addAttribute("currentPage", page); // 현재 페이지 번호 추가
-            model.addAttribute("totalPages", totalPages); // 총 페이지 수 추가
-            model.addAttribute("itemsPerPage", itemsPerPage); // 페이지당 아이템 수 추가
-            // 이전, 다음 페이지 계산
-            int prevPage = (page > 1) ? page - 1 : 1;
-            int nextPage = (page < totalPages) ? page + 1 : totalPages;
+        // 예약 정보 불러오기 (수정된 메서드 사용)
+        Reservation reservation = reservationService.findReservationById(reservationId);
 
-            model.addAttribute("prevPage", prevPage);
-            model.addAttribute("nextPage", nextPage);
+        // 새로운 유저 상태 생성
+        UserCondition userCondition = new UserCondition();
+        userCondition.setHairLength(hairLength);
+        userCondition.setHairCharacter(hairCharacter);
+        userCondition.setState(hairState);
+        //userCondition.setGender(gender);
 
-            return "designerList"; // 뷰 이름 (HTML 템플릿 파일 이름)
-        }
+        // 유저 상태와 예약 연결
+        reservation.setUserCondition(userCondition);
+        userCondition.setReservation(reservation);
+
+        // 유저 상태 저장
+        userconditionService.save(userCondition);
+
+        // HTML 조각을 반환
+        String updatedSidebar = "<div id='conditionFormFragment'>" +
+                "<h4>현재 머리상태</h4>" +
+                "<p>머리 기장: " + hairLength + "</p>" +
+                "<p>머리카락 특성: " + hairCharacter + "</p>" +
+                "<p>머리 상태: " + hairState + "</p>" +
+                //"<p>성별: " + gender + "</p>" +
+                "</div>";
+
+       // return updatedSidebar;
+        // 여기서 condition을 처리
+        return "fragments/conditionForm"; // 완료 후 리다이렉트하거나 다른 페이지로 이동
+    }
+
+*/
+    @GetMapping("/designerList")
+
+    public String getDesignerList(Model model,
+    @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "20") int itemsPerPage,
+                                  @RequestParam(required = false, defaultValue = "rating") String filter) {
+
+        model.addAttribute("filter", filter);
+
+        Pageable pageable = PageRequest.of(page-1, itemsPerPage, Sort.by(filter).descending());
+        List<DesignerResponseDto> designerList = designerService.getDesignerList(pageable);
+
+        long totalItems = designerService.getTotalCount(); // 전체 디자이너 수
+        int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage); // 총 페이지 수 계산
+        model.addAttribute("designers", designerList); // 디자이너 목록 추가
+        model.addAttribute("currentPage", page); // 현재 페이지 번호 추가
+        model.addAttribute("totalPages", totalPages); // 총 페이지 수 추가
+        model.addAttribute("itemsPerPage", itemsPerPage); // 페이지당 아이템 수 추가
+        // 이전, 다음 페이지 계산
+        int prevPage = (page > 1) ? page - 1 : 1;
+        int nextPage = (page < totalPages) ? page + 1 : totalPages;
+
+        model.addAttribute("prevPage", prevPage);
+        model.addAttribute("nextPage", nextPage);
+
+        return "designerList"; // 뷰 이름 (HTML 템플릿 파일 이름)
+    }
 
     @GetMapping("/reviewList")
     public String getReviewList(Model model,
@@ -272,9 +325,7 @@ public class IndexController {
     }
 
 
-
 }
-
 
 //
 //
